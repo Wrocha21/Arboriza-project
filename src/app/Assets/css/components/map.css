@@ -7,8 +7,7 @@
   justify-content: center;
   align-items: center;
   z-index: 1;
-  margin-top: 220px;
-
+  margin: 220px 0px 50px 0px;
   padding: 10px;
 
   .box-title {
@@ -22,5 +21,15 @@
 
   .map {
     width: 350px;
+    border: 1px solid rgb(192, 192, 192);
+    border-radius: 13px;
   }
+}
+
+.leaflet-tile-container {
+    filter:  hue-rotate(180deg) brightness(98%) contrast(100%);
+}
+
+.leaflet-control-attribution {
+    display: none !important;
 }

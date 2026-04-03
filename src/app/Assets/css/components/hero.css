@@ -8,7 +8,7 @@
   height: 290px;
   overflow: hidden;
   img {
-    filter: brightness(70%) blur(1px);
+    filter: brightness(70%);
   }
   .texts {
     position: absolute;
