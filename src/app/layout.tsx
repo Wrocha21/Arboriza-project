@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+import { Geist, Geist_Mono, Poppins } from "next/font/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -11,6 +10,13 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+const poppins = Poppins({
+  subsets: ['latin'],
+  weight: ['100','200','300','400','500','600', '700'], // Poppins requires specific weights if it's not a variable font
+  variable: '--font-poppins', // Optional: for use with Tailwind or CSS variables
+});
+
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -23,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="pt-br" className={`${geistSans.variable} ${geistMono.variable} ${poppins.className}`}>
       <body>{children}</body>
     </html>
   );

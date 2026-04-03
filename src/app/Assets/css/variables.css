@@ -1,0 +1,12 @@
+:root{
+  --primary-color: #016726;
+  --primaryText-color: #2b2a2a;
+  --secondaryText-color: #fff5f5;
+  --terciaryText-color: #6c6c6c;
+
+
+  --button-color: #52AB72;
+  --hoverButtonPrimary-color: #03511f;
+  --hoverButtonSecondary-color: #37724d;
+  --hoverLi-color: #1616161a;
+}
