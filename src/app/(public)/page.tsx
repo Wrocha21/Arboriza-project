@@ -7,6 +7,7 @@ import Activity from "../Components/activity";
 
 import 'swiper/swiper-bundle.css'
 import Voluntary from "../Components/voluntary";
+import SaibaMais from "../Components/saibaMais";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
       <Sobre />
       <Activity />
       <Voluntary/>
+      <SaibaMais/>
     </>
   );
 }

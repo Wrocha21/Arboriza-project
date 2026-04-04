@@ -1,0 +1,47 @@
+@import url("../variables.css");
+
+.Container-saibaMais {
+
+  margin-top: 90px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 90px;
+}
+
+.Container-saibaMais > .box-title {
+  margin-bottom: 30px;
+  h4 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--primaryText-color);
+  }
+}
+
+.Container-saibaMais > .box-accordeon {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .accordeon {
+    border: 1px solid rgb(150, 147, 147);
+    width: 400px;
+    height: 80px;
+    border-radius: 7px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .box-title {
+      display: flex;
+      gap: 10px;
+      margin-left: 10px;
+      align-items: center;
+    }
+
+    svg:last-child {
+      margin-right: 10px;
+      transition: all 0.2s ease;
+    }
+  }
+}
