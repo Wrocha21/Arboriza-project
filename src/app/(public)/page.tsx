@@ -6,6 +6,7 @@ import Sobre from "../Components/Sobre";
 import Activity from "../Components/activity";
 
 import 'swiper/swiper-bundle.css'
+import Voluntary from "../Components/voluntary";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
       <SectionMap />
       <Sobre />
       <Activity />
+      <Voluntary/>
     </>
   );
 }

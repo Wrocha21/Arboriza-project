@@ -1,0 +1,104 @@
+@import url("../variables.css");
+
+.Container-plantio {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--secondary-color);
+  height: 240px;
+  margin-bottom: 80px;
+}
+
+.Container-plantio > .box-plantio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+
+  .box-title {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    h4 {
+      color: var(--secondaryText-color);
+      font-size: 20px;
+    }
+    span {
+      font-size: 14px;
+      color: var(--secondaryText-color);
+    }
+  }
+  a {
+    text-decoration: none;
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 250px;
+      height: 56px;
+      border-radius: 8px;
+      border: none;
+      background-color: var(--button-color);
+      border: 1px solid white;
+      font-weight: 600;
+      padding: 10px;
+      color: white;
+      transition: all linear 0.2s;
+      &:hover {
+        cursor: pointer;
+        border: none;
+        background-color: var(--hoverButtonSecondary-color);
+      }
+    }
+  }
+}
+
+.Container-voluntary{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 40px;
+  gap: 40px;
+  .box-title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+
+    h4{
+      color: var(--primary-color);
+      font-size: 20px;
+    }
+    span{
+      color: var(--terciaryText-color);
+      font-size: 14px;
+    }
+  }
+
+  a {
+    text-decoration: none;
+    button {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 250px;
+      gap: 8px;
+      height: 56px;
+      border-radius: 8px;
+      border: none;
+      background-color: var(--button-color);
+      font-weight: 600;
+      padding: 10px;
+      color: white;
+      transition: all linear 0.2s;
+      &:hover {
+        cursor: pointer;
+        border: none;
+        background-color: var(--hoverButtonSecondary-color);
+      }
+    }
+  }
+}

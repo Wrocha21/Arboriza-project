@@ -11,6 +11,7 @@ export default function Activity() {
     { id: 1, src: "/planting.png" },
     { id: 2, src: "/inspector.png" },
     { id: 3, src: "/education.png" },
+    { id: 4, src: "/doarmudas.png" },
   ];
   const imagesTitle = [
     {
@@ -24,6 +25,10 @@ export default function Activity() {
     {
       title: "EDUCAÇÃO AMBIENTAL",
       desc: "Visa conscientizar a importância de plantar mudas",
+    },
+    {
+      title: "DOAÇÃO DE MUDAS",
+      desc: "é uma iniciativa estratégica voltada para a recuperação ambiental, arborização urbana e conservação da biodiversidade",
     },
   ];
 
