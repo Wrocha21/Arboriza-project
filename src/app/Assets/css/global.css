@@ -3,3 +3,24 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+
+.swiper {
+  width: 100%;
+  display: flex; /* Mantém em linha antes de carregar */
+  overflow: hidden;
+}
+
+.swiper-slide {
+  flex-shrink: 0; /* Impede que as imagens esmaguem */
+  width: 100%;    /* Garante que ocupem apenas o espaço de um slide */
+}
+
+/* Evita que imagens fiquem gigantes no carregamento */
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 400px; /* Ajuste para a altura que você deseja */
+  object-fit: cover;
+}

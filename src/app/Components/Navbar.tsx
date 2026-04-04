@@ -9,7 +9,7 @@ import {
   SignInIcon,
 } from "@phosphor-icons/react";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import Image from "next/image";
 import "../Assets/css/components/navbar.css";
 import logoArboriza from "../Assets/css/images/LOGO.png";
