@@ -6,7 +6,7 @@ import "../Assets/css/components/hero.css";
 import { CaretDownIcon } from "@phosphor-icons/react";
 import plantIcon from "../Assets/css/images/plant.svg";
 import projectIcon from "../Assets/css/images/projector-screen-chart.svg";
-import planting from "../Assets/css/images/planting.png";
+import planting from "../../../public/planting.png";
 import usersIcon from "../Assets/css/images/users-three.svg";
 import CardR from "./CardR";
 
@@ -36,9 +36,6 @@ export default function Hero() {
         <div className="box-titleSection">
           <span>Nosso Impacto em Números</span>
           <span className="subText">Pequenas ações que cultivam grandes mudanças.</span>
-          <div className="box-image">
-            <Image src={planting} width={300} height={300} alt=""></Image>
-          </div>
         </div>
         <div className="box-cards">
           <CardR

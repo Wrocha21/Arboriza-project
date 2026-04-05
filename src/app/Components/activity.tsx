@@ -65,8 +65,8 @@ export default function Activity() {
               <SwiperSlide key={img.id}>
                 <Image
                   src={img.src}
-                  width={200}
-                  height={200}
+                  width={900}
+                  height={900}
                   alt={`Slide ${img.id}`}
                   draggable="false"
                   loading="eager"

@@ -25,7 +25,8 @@
     flex-direction: column;
     gap: 20px;
     list-style: none;
-    width: 370px;
+    min-width: 200px;
+    max-width: 370px;
 
     li{
       padding: 8px;

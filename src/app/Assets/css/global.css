@@ -5,6 +5,7 @@
 }
 
 
+
 .swiper {
   width: 100%;
   display: flex; /* Mantém em linha antes de carregar */
@@ -23,4 +24,9 @@
   height: auto;
   max-height: 400px; /* Ajuste para a altura que você deseja */
   object-fit: cover;
+}
+
+
+.swiper-slide.swiper-slide-active{
+  margin: 0px;
 }
