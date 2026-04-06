@@ -1,10 +1,9 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { useRouter } from "next/navigation";
 import "../Assets/css/components/map.css";
 import { useState } from "react";
-const MapWithNoSSR = dynamic(() => import("../(public)/map/map"), {
+const MapWithNoSSR = dynamic(() => import("../(public)/(map)/map"), {
   ssr: false,
   loading: () => (
     <div style={{ height: "100px", width: "100px", background: "#f0f0f0" }}>
@@ -22,7 +21,7 @@ export default function SectionMap() {
  
   return (
     <>
-      <div className="container-map">
+      <div className="container-map" id="map">
         <div className="box-title">
           <span>Mapa da Arborização Urbana</span>
         </div>

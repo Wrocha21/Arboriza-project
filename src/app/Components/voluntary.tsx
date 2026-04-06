@@ -18,7 +18,7 @@ export default function Voluntary() {
           </Link>
         </div>
       </div>
-      <div className="Container-voluntary">
+      <div className="Container-voluntary" id="voluntary">
         <div className="box-title">
           <h4>SEJA UM VOLUNTÁRIO</h4>
           <span>Ajude a transformar vidas e faça parte da nossa história.</span>

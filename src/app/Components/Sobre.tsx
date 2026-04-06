@@ -4,7 +4,7 @@ import '../Assets/css/components/sobre.css'
 export default function Sobre() {
   return (
     <>
-      <div className="Container-sobre">
+      <div className="Container-sobre" id='sobre'>
         <div className="title">
           <span>SOBRE NOIS</span>
         </div>

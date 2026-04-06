@@ -24,9 +24,6 @@ export default function Map() {
       window.dispatchEvent(new Event("resize"));
     }, 300);
   };
-
-  console.log(isFullscreen);
-
   return (
     <div
       className={`map-wrapper ${isFullscreen ? "is-fullscreen" : ""}`}

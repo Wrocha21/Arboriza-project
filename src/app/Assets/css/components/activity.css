@@ -32,6 +32,7 @@
   text-align: center;
   img{
     max-width: 420px;
+    height: auto;
   }
   .box-title{
     min-width: 200px;

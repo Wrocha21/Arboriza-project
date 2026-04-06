@@ -6,15 +6,29 @@ import "../Assets/css/components/hero.css";
 import { CaretDownIcon } from "@phosphor-icons/react";
 import plantIcon from "../Assets/css/images/plant.svg";
 import projectIcon from "../Assets/css/images/projector-screen-chart.svg";
-import planting from "../../../public/planting.png";
+
+import Link from "next/link";
 import usersIcon from "../Assets/css/images/users-three.svg";
 import CardR from "./CardR";
 
 export default function Hero() {
+  function HandleOnClickLink(id: string) {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
   return (
     <>
-      <div className="container-hero">
-        <Image src={heroImg} width={500} height={300} alt="ImagemHero"></Image>
+      <div className="container-hero" id="hero">
+        <Image
+          src={heroImg}
+          width={1000}
+          height={1000}
+          alt="ImagemHero"
+          loading="eager"
+        />
         <div className="texts">
           <p>
             MAIS <span>ÁRVORES</span>, MAIS <span>VIDA</span>, MAIS FUTURO PARA{" "}
@@ -26,16 +40,20 @@ export default function Hero() {
           </p>
         </div>
         <div className="box-buttons">
-          <button>
-            Saiba mais
-            <CaretDownIcon size={22} color="#ffffff" />
-          </button>
+          <Link href={""} onClick={() => HandleOnClickLink('sobre')}>
+            <button>
+              Saiba mais
+              <CaretDownIcon size={22} color="#ffffff" />
+            </button>
+          </Link>
         </div>
       </div>
       <div className="container-cards">
         <div className="box-titleSection">
           <span>Nosso Impacto em Números</span>
-          <span className="subText">Pequenas ações que cultivam grandes mudanças.</span>
+          <span className="subText">
+            Pequenas ações que cultivam grandes mudanças.
+          </span>
         </div>
         <div className="box-cards">
           <CardR
@@ -44,8 +62,18 @@ export default function Hero() {
             desc="Temos orgulho de compartilhar que ultrapassamos a marca de 100 mudas plantadas!"
             numText="+100"
           />
-          <CardR icon={projectIcon} title="Projetos realizados" desc="Experiência que transforma. São mais de 21 soluções entregues com foco em inovação e resultados reais." numText="21" />
-          <CardR icon={usersIcon} title="Ações comunitárias" desc="Transformamos realidades através de diversas ações sociais, fortalecendo os laços e o apoio à nossa comunidade local." numText="12" />
+          <CardR
+            icon={projectIcon}
+            title="Projetos realizados"
+            desc="Experiência que transforma. São mais de 21 soluções entregues com foco em inovação e resultados reais."
+            numText="21"
+          />
+          <CardR
+            icon={usersIcon}
+            title="Ações comunitárias"
+            desc="Transformamos realidades através de diversas ações sociais, fortalecendo os laços e o apoio à nossa comunidade local."
+            numText="12"
+          />
         </div>
       </div>
     </>
