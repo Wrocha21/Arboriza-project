@@ -13,7 +13,7 @@ export default function Voluntary() {
             <h4>QUER UMA ÁRVORE EM SUA CALÇADA?</h4>
             <span>Preencha o formulário e entraremos em contato.</span>
           </div>
-          <Link href={""}>
+          <Link href={"https://docs.google.com/forms/d/e/1FAIpQLSdH-jn9ditaoj50QSBW5N-dJc6SlMMzgGX_U6lcSsumY0fcPg/viewform"}>
             <button>ACESSAR FORMULÁRIO</button>
           </Link>
         </div>
@@ -23,7 +23,7 @@ export default function Voluntary() {
           <h4>SEJA UM VOLUNTÁRIO</h4>
           <span>Ajude a transformar vidas e faça parte da nossa história.</span>
         </div>
-        <Link href={""}>
+        <Link href={"https://docs.google.com/forms/d/e/1FAIpQLSfExU_LVApEQUBJccT-PDab3DOklojIkwbw9-05iBYU8zlJOg/viewform"}>
           <button>
             <HandshakeIcon size={29} color="#ffffff" />
             QUERO SER VOLUNTÁRIO

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
+import NavbarDashboard from "./Components/NavbarDashboard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br" className={`${geistSans.variable} ${geistMono.variable} ${poppins.className}`} data-scroll-behavior="target">
-      <body>{children}</body>
+      <body>
+        <NavbarDashboard/>
+        {children}
+      </body>
     </html>
   );
 }

@@ -32,7 +32,7 @@ export default function Navbar() {
   }
 
   function OnClickButtonLogin(){
-    router.push("/signIn")
+    router.push("/sign-In")
   }
 
   return (
