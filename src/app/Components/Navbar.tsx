@@ -1,4 +1,6 @@
 "use client";
+
+
 import {
   HouseIcon,
   ListIcon,
@@ -9,20 +11,29 @@ import {
   SignInIcon,
 } from "@phosphor-icons/react";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
-import "../Assets/css/components/navbar.css";
-import logoArboriza from "../Assets/css/images/LOGO.png";
-import Link from "next/link";
-
+import "../../Assets/css/components/navbar.css";
+import logoArboriza from "@/Assets/css/images/LOGO.png"
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
+  const router = useRouter();
 
   function openMenuHamburguer() {
-    setOpenMenu(openMenu === false ? true : false);
-    console.log(openMenu);
+    setOpenMenu(!openMenu);
   }
 
+  function HandleOnClickLink(id: string) {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  }
+
+  function OnClickButtonLogin() {
+    router.push("/login");
+  }
 
   return (
     <>
@@ -40,53 +51,42 @@ export default function Navbar() {
             <ListIcon size={32} color="#383333" onClick={openMenuHamburguer} />
           </div>
         </div>
-        {openMenu && (
-          <div className="box-HideMenu" >
-            <div className="box-options">
-              <ul>
-                <Link href={""}>
-                  <li>
-                    <HouseIcon size={29} color="#383333" />
-                    Início
-                  </li>
-                </Link>
-                <Link href={""}>
-                  <li>
-                    <MapTrifoldIcon size={29} color="#383333" />
-                    Mapa
-                  </li>
-                </Link>
-                <Link href={""}>
-                  <li>
-                    <UsersThreeIcon size={29} color="#383333" />
-                    Sobre nós
-                  </li>
-                </Link>
-                <Link href={""}>
-                  <li>
-                    <HandshakeIcon size={29} color="#383333" />
-                    Seja voluntário
-                  </li>
-                </Link>
-                <Link href={""}>
-                  <li>
-                    <QuestionMarkIcon size={29} color="#383333" />
-                    Saiba mais
-                  </li>
-                </Link>
-              </ul>
-            </div>
-            <div className="box-login">
-              <ul></ul>
-              <div className="login">
-                <button>
-                  <SignInIcon size={29} color="#ffffff" />
-                  Acessar o sistema
-                </button>
-              </div>
+
+        <div className={`box-HideMenu ${openMenu ? 'active' : ''}`} >
+          <div className="box-options">
+            <ul>
+              <li onClick={() => HandleOnClickLink("hero")}>
+                <HouseIcon size={29} color="#383333" />
+                Início
+              </li>
+              <li onClick={() => HandleOnClickLink("map")}>
+                <MapTrifoldIcon size={29} color="#383333" />
+                Mapa
+              </li>
+              <li onClick={() => HandleOnClickLink("sobre")}>
+                <UsersThreeIcon size={29} color="#383333" />
+                Sobre nós
+              </li>
+              <li onClick={() => HandleOnClickLink("voluntary")}>
+                <HandshakeIcon size={29} color="#383333" />
+                Seja voluntário
+              </li>
+              <li onClick={() => HandleOnClickLink("saiba")}>
+                <QuestionMarkIcon size={29} color="#383333" />
+                Saiba mais
+              </li>
+            </ul>
+          </div>
+          <div className="box-login">
+            <ul></ul>
+            <div className="login" onClick={OnClickButtonLogin}>
+              <button>
+                <SignInIcon size={29} color="#ffffff" />
+                Acessar o sistema
+              </button>
             </div>
           </div>
-        )}
+        </div>
       </div>
     </>
   );

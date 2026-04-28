@@ -8,7 +8,9 @@
   height: 290px;
   overflow: hidden;
   img {
-    filter: brightness(70%) blur(1px);
+    filter: brightness(70%);
+    height: auto;
+    width: auto;
   }
   .texts {
     position: absolute;
@@ -35,17 +37,20 @@
     position: absolute;
 
     margin-top: 220px;
-    button {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background-color: var(--primary-color);
-      border: none;
-      padding: 10px;
-      border-radius: 4px;
-      color: white;
-      &:hover {
-        background-color: var(--hoverButtonPrimary-color);
+    a{
+      text-decoration: none;
+      button {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background-color: var(--primary-color);
+        border: none;
+        padding: 10px;
+        border-radius: 4px;
+        color: white;
+        &:hover {
+          background-color: var(--hoverButtonPrimary-color);
+        }
       }
     }
   }
