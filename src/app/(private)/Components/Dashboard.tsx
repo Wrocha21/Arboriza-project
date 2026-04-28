@@ -7,7 +7,15 @@ import {
   UsersThreeIcon,
 } from "@phosphor-icons/react";
 
+import { useRouter } from "next/navigation";
+
 export default function Dashboard() {
+  const router = useRouter();
+
+  function HandleRedirectPage(url : string){
+    router.push(url)
+  }
+
   return (
     <>
       <div className="container-Cards">
@@ -22,7 +30,6 @@ export default function Dashboard() {
                 <span>Veja os números de membros, voluntários e projetos</span>
               </div>
             </div>
-
             <ArrowRightIcon size={32} color="#016726" id="GoTo" />
           </div>
           <div className="card">
@@ -39,7 +46,7 @@ export default function Dashboard() {
             </div>
             <ArrowRightIcon size={32} color="#016726" id="GoTo" />
           </div>
-          <div className="card" id="Admin">
+          <div className="card" id="Admin" onClick={() => HandleRedirectPage("dashboard/admin")}>
             <div className="box-info">
               <div className="box-icon">
                 <GearIcon size={50} weight="light" color="#016726" />
@@ -56,7 +63,7 @@ export default function Dashboard() {
 
             <ArrowRightIcon size={32} color="#016726" id="GoTo" />
           </div>
-          <div className="card">
+          <div className="card" onClick={() => HandleRedirectPage("/")}>
             <div className="box-info">
               <div className="box-icon">
                 <UsersThreeIcon size={50} weight="light" color="#016726" />

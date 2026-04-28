@@ -34,27 +34,33 @@
   background-color: white;
   border-top: 1px solid rgb(221, 218, 218);
   z-index: 10;
+  transition: all linear 0.2s;
+  pointer-events: none;
+  height: 0px;
+  opacity: 0;
+  overflow: hidden;
+
 
   .box-options {
     ul {
+      
       list-style-type: none;
       display: flex;
 
       flex-direction: column;
       gap: 7px;
-      a {
-        text-decoration: none;
-        color: black;
-        font-size: 13px;
-        li {
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          padding: 10px;
-          border-bottom: 1px solid rgb(170, 169, 169);
-          &:hover {
-            background-color: var(--hoverLi-color);
-          }
+
+      text-decoration: none;
+      color: black;
+      font-size: 13px;
+      li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px;
+        border-bottom: 1px solid rgb(170, 169, 169);
+        &:hover {
+          background-color: var(--hoverLi-color);
         }
       }
     }
@@ -62,26 +68,30 @@
   }
   .box-login {
     .login {
-      a {
-        text-decoration: none;
-        button {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          gap: 10px;
-          background-color: var(--button-color);
-          border: none;
-          width: 100%;
-          height: 50px;
-          border-radius: 10px;
-          color: white;
-          font-weight: 600;
+      text-decoration: none;
+      button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background-color: var(--button-color);
+        border: none;
+        width: 100%;
+        height: 50px;
+        border-radius: 10px;
+        color: white;
+        font-weight: 600;
 
-          &:hover {
-            background-color: var(--hoverButtonSecondary-color);
-          }
+        &:hover {
+          background-color: var(--hoverButtonSecondary-color);
         }
       }
     }
   }
+}
+
+.container-navbar > .box-HideMenu.active{
+ opacity: 1;
+ pointer-events: all;
+ height: 370px; 
 }

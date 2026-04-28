@@ -1,4 +1,4 @@
-import '../Assets/css/components/sobre.css'
+import "../../Assets/css/components/sobre.css";
 
 
 export default function Sobre() {
@@ -15,12 +15,12 @@ export default function Sobre() {
               promove a arborização urbana responsável e a sustentabilidade na
               cidade.
             </li>
-            <li>
+            <li id='middleOne'>
               Atua com base técnica, participação social e educação ambiental,
               incentivando plantio adequado, escolha correta de espécies e
               valorização da infraestrutura verde.
             </li>
-            <li>
+            <li id='middleTwo'>
               Realiza ações práticas, orientação à população e fiscalização
               cidadã das políticas ambientais.
             </li>

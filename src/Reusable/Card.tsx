@@ -6,7 +6,7 @@ interface CardProps {
   numText: string
 }
 
-export default function CardR({ icon, title, desc, numText }: CardProps) {
+export default function Card({ icon, title, desc, numText }: CardProps) {
   return (
     <>
       <div className="card">

@@ -1,7 +1,7 @@
 "use client";
 import { CaretDownIcon, InfoIcon } from "@phosphor-icons/react";
-import "../Assets/css/components/saibaMais.css";
-import { useState, useRef } from "react";
+import "../../Assets/css/components/saibaMais.css";
+import { useState } from "react";
 export default function SaibaMais() {
   const [openAccordeon, setOpenAccordeon] = useState<number | null>(null);
 

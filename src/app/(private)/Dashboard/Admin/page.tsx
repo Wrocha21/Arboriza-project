@@ -7,9 +7,9 @@ import {
   UserGearIcon,
   UserPlusIcon,
 } from "@phosphor-icons/react";
-import "../../../Assets/css/components/adminSections.css";
+import "@/Assets/css/components/adminSections.css";
 import { useState } from "react";
-import ModalCreateUser from "../Components/ModalCreateUser";
+import ModalCreateUser from "../../Components/ModalCreateUser";
 
 export default function Admin() {
   const [openModalCreateAccount, setOpenModalCreateAccount] = useState(false);
@@ -22,7 +22,7 @@ export default function Admin() {
             <GearIcon size={40} weight="regular" color="#016726" />
             <span>ADMINISTRAÇÃO</span>
           </div>
-          <ArrowUDownLeftIcon size={27} />
+          <ArrowUDownLeftIcon id="ArrowBack" size={27} />
         </div>
         <span id="descTitle">
           Gerencie usuários, permissões e configurações do sistema

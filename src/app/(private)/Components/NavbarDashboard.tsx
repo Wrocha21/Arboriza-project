@@ -1,4 +1,4 @@
-import Logo from "../../../Assets/css/images/LOGO.png";
+import Logo from "@/Assets/css/images/LOGO.png";
 import Image from "next/image";
 
 export default function NavbarDashboard() {
@@ -8,7 +8,6 @@ export default function NavbarDashboard() {
         <div className="logo">
           <Image src={Logo} width={124} height={57} alt="Logo"/>
         </div>
-        <div className="userInfo"></div>
       </div>
     </>
   );

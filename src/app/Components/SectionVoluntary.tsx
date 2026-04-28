@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import "../Assets/css/components/voluntary.css";
+import "../../Assets/css/components/voluntary.css";
 import { HandshakeIcon } from "@phosphor-icons/react";
 
 export default function Voluntary() {

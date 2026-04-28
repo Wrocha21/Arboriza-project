@@ -2,7 +2,7 @@
 
 import { Swiper, SwiperClass, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import "../Assets/css/components/activity.css";
+import "../../Assets/css/components/activity.css";
 import Image from "next/image";
 import { useState } from "react";
 

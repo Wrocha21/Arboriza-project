@@ -88,6 +88,8 @@
       }
     }
   }
+  .input-error{border: 1px solid red;}
+  .input-filled{border:  1px solid black;}
 
   .buttonLogin {
     button {
@@ -110,7 +112,7 @@
   justify-content: center;
   font-size: 13px;
   align-items: center;
-  margin-top: 60px;
+  margin-top: 20px;
   .title {
     display: flex;
     align-items: center;
@@ -121,4 +123,29 @@
     }
     color: var(--terciaryText-color);
   }
+}
+
+.box-error{
+  width: 300px;
+  height: 30px;
+  display: flex;
+  margin-top: 8px;
+  align-items: center;
+  justify-content: start;
+  p{
+    font-size: 13px;
+    color: red;
+    font-weight: 400;
+  }
+}
+
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin{
+  animation: spin 1s linear infinite;
+  display: inline-block;
 }

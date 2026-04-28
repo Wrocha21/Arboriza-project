@@ -1,7 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import "../Assets/css/components/map.css";
+import "../../Assets/css/components/map.css";
 import { useState } from "react";
 const MapWithNoSSR = dynamic(() => import("../(public)/(map)/map"), {
   ssr: false,
