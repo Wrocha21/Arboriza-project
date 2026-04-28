@@ -1,0 +1,76 @@
+@import url("../variables.css");
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+}
+
+.container-Cards {
+  width: 100vw;
+  height: 1100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Box-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+
+  .card {
+    display: flex;
+    flex-direction: column;
+    width: 272px;
+    height: 230px;
+    border-radius: 7px;
+    box-shadow: 0px 0px 6px 0px rgb(155, 155, 155);
+    position: relative;
+    .box-info {
+      margin: 10px;
+      border-left: 4px solid var(--primary-color);
+
+      .box-icon,
+      .box-titles {
+        margin-left: 10px;
+      }
+
+      .box-titles {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        h2 {
+          font-size: 22px;
+          font-weight: 600;
+          color: var(--primaryText-color);
+        }
+        span {
+          color: var(--terciaryText-color);
+        }
+      }
+    }
+
+    svg#GoTo{
+      position: absolute;
+      right: 10px;
+      bottom: 10px;
+    }
+
+    #Title{
+      position: absolute;
+      top:7px;
+      right: 88px;
+      color: var(--primary-color);
+    }
+
+  }
+  #Admin {
+
+    background: linear-gradient(
+      180deg,
+      rgba(35, 210, 41, 0.2) 0%,
+      rgba(255, 255, 255, 0.2) 29.07%
+    );
+    border: 1px solid #e0e0e0;
+  }
+}

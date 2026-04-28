@@ -1,0 +1,75 @@
+@import url("../variables.css");
+
+.container-map {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  z-index: 1;
+  height: 100%;
+  margin-bottom: 50px;
+  .box-title {
+    margin-bottom: 10px;
+    span {
+      font-weight: 600;
+      font-size: 22px;
+      color: var(--primaryText-color);
+    }
+  }
+
+  .map {
+    width: 99% !important;
+    height: 100% !important;
+  }
+}
+
+.leaflet-tile-container {
+  filter: hue-rotate(180deg) brightness(98%) contrast(100%);
+}
+
+.leaflet-control-attribution {
+  display: none !important;
+}
+
+.map-wrapper {
+  width: 100%;
+  clear: both;
+  position: relative;
+  display: block;
+  height: 300px; /* OU o tamanho que você desejar */
+}
+
+.map-wrapper.is-fullscreen {
+  position: fixed;
+  display: block;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100; /* Garante que fica na frente de tudo */
+  cursor: default;
+}
+.btnMapOpen{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border: none;
+  z-index: 9999;
+  bottom: 0;
+  right: 0;
+  top: 10px;
+  margin-bottom: 120px;
+  margin-right: 10px;
+  width: 50px;
+  height: 50px;
+  border-radius: 9px;
+  color: white;
+  background-color: var(--button-color);
+
+  svg{
+    width: 20px;
+  }
+}

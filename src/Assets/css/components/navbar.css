@@ -1,6 +1,6 @@
 @import url("../variables.css");
 
-.container-navbar{
+.container-navbar {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -8,19 +8,18 @@
   position: relative;
 }
 
-.container-navbar > .navbar{
+.container-navbar > .navbar {
   display: flex;
   justify-content: space-between;
   width: 100%;
   align-items: center;
   box-shadow: 0px 0px 1px 0px black;
-  
 }
 
-.container-navbar > .navbar > .logo{
+.container-navbar > .navbar > .logo {
   margin-left: 5px;
 }
-.container-navbar > .navbar > .menuHamburguer{
+.container-navbar > .navbar > .menuHamburguer {
   margin-right: 5px;
 }
 
@@ -35,36 +34,42 @@
   background-color: white;
   border-top: 1px solid rgb(221, 218, 218);
   z-index: 10;
-  
+  transition: all linear 0.2s;
+  pointer-events: none;
+  height: 0px;
+  opacity: 0;
+  overflow: hidden;
 
-  .box-options{
-    ul{
+
+  .box-options {
+    ul {
+      
       list-style-type: none;
       display: flex;
-      
+
       flex-direction: column;
       gap: 7px;
-      a{
-        text-decoration: none;
-        color: black;
-        font-size: 13px;
-        li{
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          padding: 10px;
-          border-bottom: 1px solid rgb(170, 169, 169);
-          &:hover{
-            background-color: var(--hoverLi-color);
-          }
+
+      text-decoration: none;
+      color: black;
+      font-size: 13px;
+      li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 10px;
+        border-bottom: 1px solid rgb(170, 169, 169);
+        &:hover {
+          background-color: var(--hoverLi-color);
         }
       }
     }
     margin-bottom: 18px;
   }
-  .box-login{
-    .login{
-      button{
+  .box-login {
+    .login {
+      text-decoration: none;
+      button {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -77,10 +82,16 @@
         color: white;
         font-weight: 600;
 
-        &:hover{
+        &:hover {
           background-color: var(--hoverButtonSecondary-color);
         }
       }
     }
   }
+}
+
+.container-navbar > .box-HideMenu.active{
+ opacity: 1;
+ pointer-events: all;
+ height: 370px; 
 }
