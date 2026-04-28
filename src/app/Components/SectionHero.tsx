@@ -3,13 +3,9 @@
 import Image from "next/image";
 import heroImg from "../../Assets/css/images/pexels-melquizedeque-30619295.jpg";
 import "../../Assets/css/components/hero.css";;
-import { CaretDownIcon } from "@phosphor-icons/react";
-import plantIcon from "../../Assets/css/images/plant.svg";
-import projectIcon from "../../Assets/css/images/projector-screen-chart.svg";
-
+import { CaretDownIcon, PlantIcon, ProjectorScreenChartIcon, UsersThreeIcon } from "@phosphor-icons/react";
 import Link from "next/link";
-import usersIcon from "../../Assets/css/images/users-three.svg";
-import Card from "../../Reusable/Card";
+import Card from "../../Components/Card";
 
 export default function Hero() {
   function HandleOnClickLink(id: string) {
@@ -57,22 +53,25 @@ export default function Hero() {
         </div>
         <div className="box-cards">
           <Card
-            icon={plantIcon}
+            icon={PlantIcon}
             title="Mudas plantadas"
             desc="Temos orgulho de compartilhar que ultrapassamos a marca de 100 mudas plantadas!"
             numText="+100"
+            hasNumber={true}
           />
           <Card
-            icon={projectIcon}
+            icon={ProjectorScreenChartIcon}
             title="Projetos realizados"
             desc="Experiência que transforma. São mais de 21 soluções entregues com foco em inovação e resultados reais."
             numText="21"
+            hasNumber={true}
           />
           <Card
-            icon={usersIcon}
+            icon={UsersThreeIcon}
             title="Ações comunitárias"
             desc="Transformamos realidades através de diversas ações sociais, fortalecendo os laços e o apoio à nossa comunidade local."
             numText="12"
+            hasNumber={true}
           />
         </div>
       </div>

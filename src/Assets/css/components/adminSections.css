@@ -4,6 +4,10 @@
   margin: 0;
   box-sizing: border-box;
 }
+.container-navDash {
+  display: flex;
+  justify-content: space-between;
+}
 
 .box-adm {
   display: flex;
@@ -74,7 +78,7 @@
         box-shadow: 0px 2px 3px 0px rgb(187, 187, 187);
 
         .box-icon {
-          padding: 5px;
+          padding: 7px;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -89,12 +93,17 @@
 
           span:first-child {
             color: var(--primaryText-color);
-            font-weight: 500;
+            font-weight: 600;
           }
           span:last-child {
             font-size: 12px;
             color: var(--terciaryText-color);
           }
+        }
+        .box-arrow {
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       }
     }
@@ -113,14 +122,9 @@
   align-items: center;
 }
 
-.container-navDash {
-  display: flex;
-  justify-content: space-between;
-}
-
 .containerModal > .boxModal {
   width: 380px;
-  height: 560px;
+  height: 490px;
   background-color: white;
   padding: 4px;
   border-radius: 9px;
@@ -220,6 +224,8 @@
 
     span {
       font-weight: 500;
+      font-size: 14px;
+      color: rgb(79, 78, 78);
     }
     .input {
       border: 1px solid rgb(172, 172, 172);
@@ -255,7 +261,13 @@
   .box-cargo {
     display: flex;
     flex-direction: column;
-
+    gap: 8px;
+    span{
+      font-weight: 500;
+      font-size: 14px;
+      color: rgb(79, 78, 78);
+      
+    }
     .box-input {
       display: flex;
       flex-direction: column;
@@ -288,6 +300,9 @@
   opacity: 0;
   pointer-events: none;
   transition: all 0.3s ease-in-out;
+  span{
+    border: 1px  solid red;
+  }
   ul {
     display: flex;
     width: 300px;

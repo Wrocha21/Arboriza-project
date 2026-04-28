@@ -1,18 +1,19 @@
 "use client";
 import {
-  ArrowRightIcon,
-  ArrowUDownLeftIcon,
+  ArrowLeftIcon,
+  CaretRightIcon,
   GearIcon,
   PlantIcon,
-  UserGearIcon,
   UserPlusIcon,
 } from "@phosphor-icons/react";
 import "@/Assets/css/components/adminSections.css";
 import { useState } from "react";
 import ModalCreateUser from "../../Components/ModalCreateUser";
+import { useRouter } from "next/navigation";
 
 export default function Admin() {
   const [openModalCreateAccount, setOpenModalCreateAccount] = useState(false);
+  const router = useRouter();
 
   return (
     <>
@@ -22,7 +23,7 @@ export default function Admin() {
             <GearIcon size={40} weight="regular" color="#016726" />
             <span>ADMINISTRAÇÃO</span>
           </div>
-          <ArrowUDownLeftIcon id="ArrowBack" size={27} />
+          <ArrowLeftIcon id="ArrowBack" size={27} onClick={() => router.push('/dashboard')} />
         </div>
         <span id="descTitle">
           Gerencie usuários, permissões e configurações do sistema
@@ -35,26 +36,14 @@ export default function Admin() {
           <div className="box-accordeon">
             <div className="accordeon">
               <div className="box-icon">
-                <UserGearIcon size={29} />
-              </div>
-              <div className="box-title">
-                <span>Gerenciar Usuários</span>
-                <span>Visualize e edite as contas dos integrantes</span>
-              </div>
-              <div className="box-arrow">
-                <ArrowRightIcon size={32} color="#016726" />
-              </div>
-            </div>
-            <div className="accordeon">
-              <div className="box-icon">
                 <PlantIcon size={29} />
               </div>
               <div className="box-title">
                 <span>Gerenciar Plantios</span>
-                <span>Crie markers no mapa, edite informações e exclua</span>
+                <span>Crie marcadores no mapa, edite informações ou remova registros.</span>
               </div>
               <div className="box-arrow">
-                <ArrowRightIcon size={32} color="#016726" />
+                <CaretRightIcon size={32} color="#016726" />
               </div>
             </div>
           </div>
