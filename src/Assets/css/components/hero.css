@@ -10,7 +10,7 @@
   img {
     filter: brightness(70%);
     height: auto;
-    width: auto;
+    width: 100%;
   }
   .texts {
     position: absolute;

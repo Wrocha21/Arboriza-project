@@ -1,18 +1,16 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html{
+html {
   scroll-behavior: "smooth";
 }
 
-body{
+body {
   background-color: #ffffff;
 }
-
-
 
 .swiper {
   width: 100%;
@@ -22,7 +20,7 @@ body{
 
 .swiper-slide {
   flex-shrink: 0; /* Impede que as imagens esmaguem */
-  width: 100%;    /* Garante que ocupem apenas o espaço de um slide */
+  width: 100%; /* Garante que ocupem apenas o espaço de um slide */
 }
 
 /* Evita que imagens fiquem gigantes no carregamento */
@@ -34,7 +32,131 @@ body{
   object-fit: cover;
 }
 
-
-.swiper-slide.swiper-slide-active{
+.swiper-slide.swiper-slide-active {
   margin: 0px;
+}
+
+.box-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg {
+    animation: spin infinite 1s linear;
+  }
+}
+.box-loadingEdit {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg#checkIcon {
+    fill: white;
+    animation: sucess 1s linear;
+  }
+  svg#circleIcon{
+     animation: spin infinite 1s linear;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes sucess {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
+.box-welcome {
+  background-color: #09471F;
+  margin: 10px;
+  height: 138px;
+  border-radius: 7px;
+  overflow: hidden;
+  position: relative;
+
+  .box-decoration {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    right: -1px;
+    display: flex;
+  }
+  .box-userName{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 10px 0px 10px;
+
+    span{
+      color: #CAC400;
+      font-weight: 700;
+      font-size: 12px;
+    }
+  }
+  .box-texts{
+    margin-left: 32px;
+    width: 240px;
+     h2{
+      color: white;
+      font-size: 22px;
+     }
+     span{
+      font-size: 12px;
+      color: rgb(176, 176, 176);
+      display: block;
+      width: 200px;
+      font-weight: 300;
+      margin: 0px;
+     }
+  }
+
+  #treeIcon {
+    position: absolute;
+    right: 59px;
+    top: 82px;
+    
+  }
+}
+
+
+.container-navDash{
+  display: flex;
+  align-items: center;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(228, 228, 228);
+  .logo{
+    img{
+      width: 160px;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+  .box-perfil{
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+    .circle{
+      width: 53px;
+      height: 53px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
 }

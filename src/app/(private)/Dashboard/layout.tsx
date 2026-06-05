@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Poppins } from "next/font/google";
-import NavbarDashboard from "../Components/NavbarDashboard";
+import NavbarDashboard from "../components/NavbarDashboard";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div lang="pt-br" className={`${geistSans.variable} ${geistMono.variable} ${poppins.className}`} data-scroll-behavior="target">
+    <div lang="pt-br" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${poppins.className}`} data-scroll-behavior="target">
         <NavbarDashboard/>
         {children}
     </div>

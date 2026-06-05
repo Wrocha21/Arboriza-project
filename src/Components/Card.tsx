@@ -4,11 +4,17 @@ interface CardProps {
   icon: ElementType;
   title: string;
   desc: string;
-  numText: string;
+  numText?: string;
   hasNumber: boolean;
-  hasRedirect?: () => void
-  onLeftPage?: () => void
+  bgIcon?: string
+  colorIcon: "white" | "green" | string
+  colorArrow?: string
+  hasAction?: () => void
 }
+
+import {
+  ArrowRightIcon,
+} from "@phosphor-icons/react";
 
 export default function Card({
   icon: Icon,
@@ -16,26 +22,37 @@ export default function Card({
   desc,
   numText,
   hasNumber = false,
-  hasRedirect,
-  onLeftPage
+  hasAction,
+  bgIcon,
+  colorArrow,
+  colorIcon
 }: CardProps) {
   return (
     <>
-      <div className="card" onClick={hasRedirect || onLeftPage}>
+      <div className="card" onClick={hasAction}>
         <div className="box-info">
-          <div className="box-icon">
-            <Icon size={32} color="#016726" />
+          <div className="box-icon" style={{backgroundColor: bgIcon}}>
+            <Icon size={40} color={colorIcon} />
           </div>
-          <div className="box-titles">
+          <div className="box-titles" >
             <h2>{title}</h2>
             <span>{desc}</span>
           </div>
         </div>
+        {hasNumber === false ? (
+          <div className="box-arrow">
+          <ArrowRightIcon size={27} color={colorArrow}/>
+        </div>
+        ):(
+          ""
+        )}
+        
         {hasNumber && (
           <div className="box-numberInfo">
             <span>{numText}</span>
           </div>
         )}
+
       </div>
     </>
   );

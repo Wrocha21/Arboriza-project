@@ -2,10 +2,15 @@
 
 import Image from "next/image";
 import heroImg from "../../Assets/css/images/pexels-melquizedeque-30619295.jpg";
-import "../../Assets/css/components/hero.css";;
-import { CaretDownIcon, PlantIcon, ProjectorScreenChartIcon, UsersThreeIcon } from "@phosphor-icons/react";
+import "../../Assets/css/components/hero.css";
+import {
+  CaretDownIcon,
+  PlantIcon,
+  ProjectorScreenChartIcon,
+  UsersThreeIcon,
+} from "@phosphor-icons/react";
 import Link from "next/link";
-import Card from "../../Components/Card";
+import Card from "../../components/Card";
 
 export default function Hero() {
   function HandleOnClickLink(id: string) {
@@ -36,7 +41,7 @@ export default function Hero() {
           </p>
         </div>
         <div className="box-buttons">
-          <Link href={""} onClick={() => HandleOnClickLink('sobre')}>
+          <Link href={""} onClick={() => HandleOnClickLink("sobre")}>
             <button>
               Saiba mais
               <CaretDownIcon size={22} color="#ffffff" />
@@ -58,6 +63,7 @@ export default function Hero() {
             desc="Temos orgulho de compartilhar que ultrapassamos a marca de 100 mudas plantadas!"
             numText="+100"
             hasNumber={true}
+            colorIcon="green"
           />
           <Card
             icon={ProjectorScreenChartIcon}
@@ -65,6 +71,7 @@ export default function Hero() {
             desc="Experiência que transforma. São mais de 21 soluções entregues com foco em inovação e resultados reais."
             numText="21"
             hasNumber={true}
+            colorIcon="green"
           />
           <Card
             icon={UsersThreeIcon}
@@ -72,6 +79,8 @@ export default function Hero() {
             desc="Transformamos realidades através de diversas ações sociais, fortalecendo os laços e o apoio à nossa comunidade local."
             numText="12"
             hasNumber={true}
+            
+            colorIcon="green"
           />
         </div>
       </div>
