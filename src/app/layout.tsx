@@ -29,7 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br" className={`${geistSans.variable} ${geistMono.variable} ${poppins.className}`} data-scroll-behavior="target">
+    <html lang="pt-br" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${poppins.className}`} data-scroll-behavior="target">
       <body>{children}</body>
     </html>
   );

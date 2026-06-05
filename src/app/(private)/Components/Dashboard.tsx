@@ -1,60 +1,93 @@
 "use client";
 
 import Card from "@/Components/Card";
+import { useAuth, AuthProvider } from "@/app/context/AuthContext";
 import {
-  ArrowRightIcon,
+  SignOutIcon,
   GearIcon,
   HouseIcon,
   UsersThreeIcon,
+  ArrowUDownLeftIcon,
 } from "@phosphor-icons/react";
 
 import { useRouter } from "next/navigation";
+import DashboardWelcome from "@/Components/DashboardTitle";
 
-export default function Dashboard() {
+
+export function DashboardContent() {
   const router = useRouter();
-
-  function HandleRedirectPage(url: string) {
-    router.push(url);
-  }
+  const { userName, roleUser } = useAuth();
 
   return (
     <>
-      <div className="container-Cards">
-        <div className="Box-sections">
-          <Card
-            icon={HouseIcon}
-            title="Visão Geral"
-            desc="Veja os números de membros, voluntários e projetos"
-            hasNumber
-            numText=""
-          />
-          <Card
-            icon={UsersThreeIcon}
-            title="Equipe"
-            desc="Veja os integrantes da equipe e seus administradores"
-            hasNumber
-            numText=""
-          />
-          <Card
-            icon={GearIcon}
-            title="Administração"
-            desc="Visualize e gerencie todos os logins criados e crie um plantio"
-            hasNumber
-            numText=""
-            hasRedirect={() => HandleRedirectPage("dashboard/admin")}
-          
-          />
-          <Card
-            icon={UsersThreeIcon}
-            title="Sair do Painel"
-            desc="Volte para a página incial"
-            hasNumber
-            numText=""
-            onLeftPage={() => HandleRedirectPage("/")}
-          
-          />
+      <div className="container-dashboard">
+        <DashboardWelcome
+          title="Gestão do sistema"
+          arrowBack={ArrowUDownLeftIcon}
+          username={userName}
+          hasAction={() => router.push("/")}
+          desc="Gerencie as ações, equipes e o impacto do projeto na cidade."
+        />
+
+        <div className="container-Cards">
+          <div className="Box-sections">
+            <Card
+              title="Visão Geral"
+              icon={HouseIcon}
+              colorArrow="rgb(10, 137, 29)"
+              bgIcon="rgba(10, 137, 29, 0.58)"
+              colorIcon="white"
+              desc="Veja os números de membros, projeto e voluntários"
+              hasNumber={false}
+              hasAction={() => router.push("/dashboard/geral")}
+            />
+            <Card
+              title="Equipe"
+              icon={UsersThreeIcon}
+              colorArrow="rgb(10, 57, 137)"
+              bgIcon="rgba(10, 57, 137, 0.58)"
+              desc="Veja os membros da equipe"
+              colorIcon="white"
+              hasNumber={false}
+              hasAction={() => router.push("/dashboard/equipe")}
+            />
+            {roleUser === "admin" && (
+              <Card
+                title="Administração"
+                icon={GearIcon}
+                colorIcon="white"
+                colorArrow="rgb(228, 137, 25)"
+                bgIcon="rgba(228, 137, 25, 0.58)"
+                desc="Gerencie as contas criadas e adicione um plantio"
+                hasNumber={false}
+                hasAction={() => {
+                  router.push("/dashboard/admin");
+                }}
+              />
+            )}
+            <Card
+              title="Sair do Painel"
+              icon={SignOutIcon}
+              colorIcon="white"
+              colorArrow="rgb(228, 25, 25)"
+              bgIcon="rgba(228, 25, 25, 0.58)"
+              desc="Volte para a página principal"
+              hasNumber={false}
+              hasAction={() => {
+                router.push("/");
+              }}
+            />
+          </div>
         </div>
       </div>
     </>
+  );
+}
+
+export default function Dashboard() {
+  return (
+    <AuthProvider>
+      <DashboardContent />
+    </AuthProvider>
   );
 }

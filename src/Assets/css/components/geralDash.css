@@ -1,0 +1,192 @@
+@import url("../variables.css");
+.container-geral {
+  .box-indicadores {
+    margin: 20px 10px 40px 10px;
+    pointer-events: none;
+    span {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--primaryText-color);
+    }
+
+    .box-cards {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 12px;
+
+      .card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        width: 132px;
+        height: 180px;
+        border-radius: 7px;
+        border: 1px solid #d3d3d3;
+
+        .box-icon {
+          margin-top: 12px;
+          margin-bottom: 15px;
+          width: 45px;
+          height: 45px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #93fcb942;
+
+          svg {
+            width: 24px;
+            height: 24px;
+            fill: #1d5c33;
+          }
+        }
+        .box-title {
+          display: flex;
+          gap: 7px;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          text-align: center;
+
+          span {
+            font-weight: 400;
+            font-size: 13px;
+            color: var(--terciaryText-color);
+          }
+        }
+      }
+    }
+  }
+
+  #treeIconBox {
+    background-color: #446a52;
+    svg {
+      fill: white;
+    }
+  }
+  #treeContentText {
+    color: #1d5c33;
+  }
+
+  #warningIconBox {
+    background-color: #bc111175;
+    svg {
+      fill: white;
+    }
+    span {
+      color: #e95a5a;
+    }
+  }
+  #warningContentText {
+    color: #e95a5a;
+  }
+
+  .box-actions {
+    margin: 20px 10px 40px 10px;
+    span {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--primaryText-color);
+    }
+    .box-circles {
+      display: flex;
+      justify-content: center;
+      margin-top: 20px;
+      gap: 30px;
+      span {
+        font-size: 12px;
+        font-weight: 600;
+        color: rgb(71, 71, 71);
+      }
+      .circle {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+
+        .infoBox {
+          display: flex;
+          justify-content: center;
+          gap: 4px;
+          align-items: center;
+          background-color: #93fcb942;
+          width: 55px;
+          height: 55px;
+          border-radius: 50%;
+          svg {
+            color: #1d5c33;
+          }
+          transition: linear 0.2s all;
+        }
+
+        &:hover {
+          .infoBox {
+            background-color: #2eb25fb2;
+            svg {
+              fill: white;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .box-atividades {
+    margin-bottom: 40px;
+    .box-info {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-left: 10px;
+      span {
+        font-size: 15px;
+        color: var(--primaryText-color);
+        font-weight: bold;
+      }
+
+      .box-see {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        margin-right: 10px;
+        width: 200px;
+        position: relative;
+
+        span {
+          margin-right: 34px;
+          color: var(--primary-color);
+          font-size: 14px;
+          font-weight: 500;
+          pointer-events: none;
+        }
+        svg {
+          position: absolute;
+          right: 10px;
+          transition: all linear 0.1s;
+          fill: var(--primary-color);
+        }
+
+        &:hover {
+          svg {
+            right: 0px;
+          }
+        }
+      }
+    }
+    .box-noHistoric {
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      span {
+        font-size: 14px;
+      }
+    }
+  }
+}
