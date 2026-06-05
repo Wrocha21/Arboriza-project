@@ -30,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div lang="pt-br" className={`${geistSans.variable} ${geistMono.variable} ${poppins.className}`} data-scroll-behavior="target">
+    <div lang="pt-br" suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${poppins.className}`} data-scroll-behavior="target">
         <NavbarDashboard/>
         {children}
     </div>

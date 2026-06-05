@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps, getApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
-
+import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -11,8 +11,10 @@ const firebaseConfig = {
   messagingSenderId: process.env.NEXT_PUBLIC_MESSAGING_SENDER_ID,
   appId: process.env.NEXT_PUBLIC_APP_ID
 };
-
+const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+const auth = getAuth(app)
+const db = getFirestore(app);
 
-export const auth = getAuth(app)
+
+export { app, auth, db };

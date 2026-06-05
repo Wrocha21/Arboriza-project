@@ -31,24 +31,12 @@
     li {
       padding: 8px;
       color: var(--terciaryText-color);
-      text-align: justify;
-      letter-spacing: -3%;
     }
 
-    li:first-child {
+    li:first-child,li:last-child {
       color: var(--primaryText-color);
       border-left: 5px solid var(--primary-color);
     }
-    li#middleOne{
-      letter-spacing: -1%;
-    }
-    li#middleTwo{
-      letter-spacing: -4%;
-    }
-    li:last-child {
-      letter-spacing: -4%;
-      color: var(--primaryText-color);
-      border-left: 5px solid var(--primary-color);
-    }
+
   }
 }
