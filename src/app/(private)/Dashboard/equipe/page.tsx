@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import {useState} from "react";
+import { useState } from "react";
 import { auth } from "@/lib/auth/auth";
 import { AuthProvider, useAuth } from "@/app/context/AuthContext";
 
@@ -12,7 +12,7 @@ import "@/Assets/css/components/equipeDash.css";
 import {
   ArrowUDownLeftIcon,
   MagnifyingGlassIcon,
-  DotsThreeOutlineIcon
+  DotsThreeOutlineIcon,
 } from "@phosphor-icons/react";
 
 interface UserProps {
@@ -20,12 +20,13 @@ interface UserProps {
   nome: string;
   email?: string;
   role: string;
-  photoURL?: string
+  photoURL?: string;
 }
 
 import Image from "next/image";
 import ModalEditUser from "../../Components/ModalEditUser";
-import defaultProfile from "@/Assets/css/images/avatarPadrao.png"
+import defaultProfile from "@/Assets/css/images/avatarPadrao.png";
+import NavbarDashboard from "../../Components/NavbarDashboard";
 
 export function EquipeContent() {
   const router = useRouter();
@@ -33,7 +34,7 @@ export function EquipeContent() {
   const { userName, roleUser, usuarios } = useAuth();
   const [openModalDelete, setOpenModalDelete] = useState(false);
   const [inputSearchValue, setInputSearchValue] = useState("");
-  const [sameAuthId, setSameAuthId] = useState<boolean>()
+  const [sameAuthId, setSameAuthId] = useState<boolean>();
 
   const [pagination, setPagination] = useState(0);
   const [pageNumber, setPageNumber] = useState(1);
@@ -43,7 +44,7 @@ export function EquipeContent() {
   const backPage = pagination * itensPorPagina;
   const nextPage = backPage + itensPorPagina;
 
-  const usuariosFiltrados = ( usuarios || []).filter((user) => {
+  const usuariosFiltrados = (usuarios || []).filter((user) => {
     const nomeUsuario = user.nome.toLowerCase();
     const textoBuscado = inputSearchValue.toLowerCase();
 
@@ -67,13 +68,14 @@ export function EquipeContent() {
     setPageNumber((prev) => prev - 1);
   }
 
-  function isTheSameId(user : UserProps){
-    setCurrentUser(user)
-    setOpenModalDelete(true)
+  function isTheSameId(user: UserProps) {
+    setCurrentUser(user);
+    setOpenModalDelete(true);
   }
 
   return (
     <>
+      <NavbarDashboard />
       <div className="container-equipe">
         <DashboardTitle
           title="Equipe"
@@ -83,14 +85,15 @@ export function EquipeContent() {
           desc="Veja os integrantes da equipe"
         />
         <div className="container-users">
-          <div className="box-search"
+          <div
+            className="box-search"
             style={{
               border: inputSearchValue.length > 0 ? "1px solid black" : "",
             }}
           >
-          <div className="box-icon">
-            <MagnifyingGlassIcon width={24} height={24} alt="" />
-          </div>
+            <div className="box-icon">
+              <MagnifyingGlassIcon width={24} height={24} alt="" />
+            </div>
 
             <input
               type="text"
@@ -103,43 +106,58 @@ export function EquipeContent() {
           </div>
           <div className="box-users">
             {usuariosFiltrados.slice(backPage, nextPage).map((user, index) => {
-                const ehOMesmoUsuario = user.id === auth.currentUser?.uid;
+              const ehOMesmoUsuario = user.id === auth.currentUser?.uid;
 
-                return (
-                  <div key={index} className={`userBox`} onClick={() => {
-                    isTheSameId(user)
-                    setSameAuthId(ehOMesmoUsuario)
-                    }}>
-                    <div className="box-perfil">
-                      <div className="circle">
-                        <Image src={user.photoURL && user.photoURL.trim() !== "" ? user.photoURL : defaultProfile} width={120} height={120} alt=""/>
-                      </div>
-                      <div className="box-text">
-                        <p>
-                          {user.nome[0].toLocaleUpperCase() +
-                            user.nome.slice(1)}
-                          {ehOMesmoUsuario && (
-                            <span id="userValidate"> (Você)</span>
-                          )}
-                        </p>
-
-                        <span>
-                          {user.role[0].toLocaleUpperCase() +
-                            user.role.slice(1)}
-                        </span>
-
-                        <span id="emailText">{user.email}</span>
-
-                      </div>
+              return (
+                <div
+                  key={index}
+                  className={`userBox`}
+                  onClick={() => {
+                    isTheSameId(user);
+                    setSameAuthId(ehOMesmoUsuario);
+                  }}
+                >
+                  <div className="box-perfil">
+                    <div className="circle">
+                      <Image
+                        src={
+                          user.photoURL && user.photoURL.trim() !== ""
+                            ? user.photoURL
+                            : defaultProfile
+                        }
+                        width={120}
+                        height={120}
+                        alt=""
+                      />
                     </div>
-                    {roleUser === "admin" && !ehOMesmoUsuario && (
-                      <div className="box-actions">
-                        <DotsThreeOutlineIcon weight="fill" width={24} height={24} color="#727272"/>
-                      </div>
-                    )}
+                    <div className="box-text">
+                      <p>
+                        {user.nome[0].toLocaleUpperCase() + user.nome.slice(1)}
+                        {ehOMesmoUsuario && (
+                          <span id="userValidate"> (Você)</span>
+                        )}
+                      </p>
+
+                      <span>
+                        {user.role[0].toLocaleUpperCase() + user.role.slice(1)}
+                      </span>
+
+                      <span id="emailText">{user.email}</span>
+                    </div>
                   </div>
-                );
-              })}
+                  {roleUser === "admin" && !ehOMesmoUsuario && (
+                    <div className="box-actions">
+                      <DotsThreeOutlineIcon
+                        weight="fill"
+                        width={24}
+                        height={24}
+                        color="#727272"
+                      />
+                    </div>
+                  )}
+                </div>
+              );
+            })}
           </div>
           <div className="box-pagination">
             <div className="box-numberPage">
@@ -163,10 +181,13 @@ export function EquipeContent() {
           </div>
         </div>
       </div>
-      {openModalDelete && currentUser && !sameAuthId && (
-        <ModalEditUser setOpenMenu={setOpenModalDelete} userData={currentUser} />
+      {openModalDelete && currentUser && !sameAuthId && roleUser === "admin" && (
+        <ModalEditUser
+          setOpenMenu={setOpenModalDelete}
+          userData={currentUser}
+          userName={userName}
+        />
       )}
-
     </>
   );
 }

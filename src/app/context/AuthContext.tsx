@@ -1,8 +1,8 @@
-import { CircleNotchIcon } from "@phosphor-icons/react";
+import { TreeEvergreenIcon } from "@phosphor-icons/react";
 import React, { createContext, useState, ReactNode } from "react";
 import { auth, db } from "@/lib/auth/auth";
 import { onAuthStateChanged } from "firebase/auth";
-import { collection, doc, getDoc, getDocs } from "firebase/firestore";
+import { collection, doc, getDoc, onSnapshot } from "firebase/firestore";
 import { useEffect } from "react";
 
 export const AuthContext = createContext({} as AuthContextType);
@@ -10,12 +10,14 @@ export const AuthContext = createContext({} as AuthContextType);
 interface AuthContextType {
   userName: string;
   roleUser: string;
-  loading: boolean;
   photoURL: string;
   emailUser: string;
   userId: string;
   setOpenModalPerfil: React.Dispatch<React.SetStateAction<boolean>>;
   openModalPerfil: boolean;
+  loading: boolean;
+  loadingUsers: boolean;
+
   usuarios: Usuario[];
 }
 
@@ -35,11 +37,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [userId, setUserId] = useState<string>("");
   const [photoURL, setPhotoURL] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(true);
+  const [loadingAuth, setLoadingAuth] = useState(true);
+  const [loadingUsers, setLoadingUsers] = useState(true);
 
   const [usuarios, setUsuarios] = useState<Usuario[]>([]);
   const [openModalPerfil, setOpenModalPerfil] = useState<boolean>(false);
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
+    let unsubscribeSnapshotUser: () => void;
+    let unsubscribeSnapshotLista: () => void;
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         const userId = user.uid;
@@ -47,54 +56,73 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
         try {
           await user.reload();
-          const docSnap = await getDoc(userDocRef);
+          unsubscribeSnapshotUser = onSnapshot(userDocRef, (docSnap) => {
+            if (docSnap.exists()) {
+              const dadosUser = docSnap.data();
+              setUserName(dadosUser.nome);
+              setRoleUser(dadosUser.role);
+              setPhotoURL(dadosUser.photoURL);
+              setEmailUser(dadosUser.email);
+              setUserId(user.uid);
+            } else {
+              auth.signOut();
+              document.cookie =
+                "session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+              window.location.href = "/";
+            }
+          }); // Retorna os dados em tempo real da coleção de usuários para melhor usabilidade ao admin editar os users
+          
+          const usuariosCollectionRef = collection(db, "usuarios");
+          unsubscribeSnapshotLista = onSnapshot(
+            usuariosCollectionRef,
+            (querySnapshot) => {
+              const listaUsuarios = querySnapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data(),
+              })) as Usuario[];
 
-          if (docSnap.exists()) {
-            const dadosUser = docSnap.data();
-            setUserName(dadosUser.nome);
-            setRoleUser(dadosUser.role);
-            setPhotoURL(dadosUser.photoURL);
-            setEmailUser(dadosUser.email);
-            setUserId(user.uid);
+              setUsuarios(listaUsuarios);
 
-            const usuariosCollectionRef = collection(db, "usuarios");
-            const querySnapshot = await getDocs(usuariosCollectionRef);
-            const listaUsuarios = querySnapshot.docs.map((doc) => ({
-              id: doc.id,
-              ...doc.data(),
-            })) as Usuario[];
-            setUsuarios(listaUsuarios);
-          } else {
-            await auth.signOut();
-          }
+              setLoadingUsers(false);
+            },
+            (error) => {
+              console.error("Erro ao escutar usuários: ", error);
+            },
+          ); // Serve como um botão de desligar para evitar que as permissões persista ao mudar o role do user
         } catch (error) {
           console.log(error);
-          document.cookie = "session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
-          await auth.signOut();
-
-          window.location.href = "/";
         } finally {
-          setLoading(false);
+          await delay(500);
+          setLoadingAuth(false);
         }
       } else {
+        document.cookie =
+          "session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
+        setLoadingAuth(false);
 
-        document.cookie = "session=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT;";
-        setLoading(false);
+        // Limpa as escutas caso o usuário deslogue
+      if (unsubscribeSnapshotUser) unsubscribeSnapshotUser();
+      if (unsubscribeSnapshotLista) unsubscribeSnapshotLista();
       }
     });
-    return () => unsubscribe();
+
+    return () => {
+      unsubscribe();
+      if (unsubscribeSnapshotUser) unsubscribeSnapshotUser();
+      if (unsubscribeSnapshotLista) unsubscribeSnapshotLista();
+    };
   }, []);
 
-  if (loading) {
+  if (loadingAuth) {
     return (
       <>
-        <div className="box-loading">
-          <CircleNotchIcon size={32} color="#7a7a7a" />
+        <div className="box-preLoading">
+          <TreeEvergreenIcon size={32} weight="fill" color="#green" />
         </div>
       </>
     );
   }
-
+  console.log(roleUser);
   return (
     <AuthContext.Provider
       value={{
@@ -104,6 +132,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         usuarios,
         photoURL,
         setOpenModalPerfil,
+        loadingUsers,
         openModalPerfil,
         userId,
         emailUser,

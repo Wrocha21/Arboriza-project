@@ -1,7 +1,9 @@
 "use client";
 
-import { db } from "@/lib/auth/auth";
+import {db } from "@/lib/auth/auth";
 import {
+  addDoc,
+  collection,
   doc,
   updateDoc,
 } from "firebase/firestore";
@@ -14,33 +16,36 @@ import {
 } from "@phosphor-icons/react";
 import Image from "next/image";
 import logoTree from "@/Assets/css/images/Tree.png";
-import { useState } from "react";
-import defaultProfile from "@/Assets/css/images/avatarPadrao.png"
+import {useState } from "react";
+import defaultProfile from "@/Assets/css/images/avatarPadrao.png";
+import ModalDesctructive from "@/Components/ModalDesctructive";
+import { getAuth } from "firebase/auth";
 
 interface UserProps {
   id: string;
   nome: string;
   email?: string;
   role: string;
-  photoURL?: string
+  photoURL?: string;
 }
 
 interface ModalUserProps {
   setOpenMenu: (value: boolean) => void;
   userData: UserProps;
+  userName: string;
 }
 
-export default function ModalEditUser({
-  setOpenMenu,
-  userData,
-}: ModalUserProps) {
+export default function ModalEditUser({setOpenMenu,userData,userName,}: ModalUserProps) {
+
 
   const [cargoValue, setCargoValue] = useState(userData.role);
   const [openModalCargo, setOpenModalCargo] = useState(false);
-  const [inputValueName, setInputValueName] = useState<string | undefined>(userData.nome,);
+  const [openModalDesctructive, setOpenModalDesctructive] = useState<boolean>(false);
+  const [inputValueName, setInputValueName] = useState<string>(userData.nome);
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
-
   const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  const auth = getAuth();
+
 
   async function handleUpdateUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -55,8 +60,15 @@ export default function ModalEditUser({
         nome: inputValueName,
         role: cargoValue,
       });
-      
-
+      await addDoc(collection(db, "logs"), {
+        tipo: "Edit",
+        usuarioModificadoUid: userData.id,
+        usuarioModificadoNome: inputValueName,
+        usuarioCargo: cargoValue,
+        executadoPor: userName,
+        executadoPorId: auth.currentUser?.uid || "",
+        timestamp: new Date(),
+      });
 
       setStatus("success");
       await delay(2000);
@@ -71,7 +83,9 @@ export default function ModalEditUser({
   function modalCargoIsOpen() {
     setOpenModalCargo((prev) => !prev);
   }
-
+  const isSubmitDisabled =
+    inputValueName === userData.nome && cargoValue === userData.role;
+    
   return (
     <>
       <div className="containerModal">
@@ -87,7 +101,16 @@ export default function ModalEditUser({
               />
             </div>
             <div className="box-perfilEditUser">
-              <Image src={userData.photoURL&& userData.photoURL.trim() !== "" ? userData.photoURL : defaultProfile} width={300} height={300} alt=""></Image>
+              <Image
+                src={
+                  userData.photoURL && userData.photoURL.trim() !== ""
+                    ? userData.photoURL
+                    : defaultProfile
+                }
+                width={300}
+                height={300}
+                alt=""
+              ></Image>
             </div>
             <div className="container-inputs">
               <form onSubmit={handleUpdateUser}>
@@ -102,7 +125,7 @@ export default function ModalEditUser({
                     <input
                       type="text"
                       onChange={(e) => setInputValueName(e.target.value)}
-                      placeholder="Nome"
+                      placeholder={userData.nome}
                       value={inputValueName}
                     />
                   </div>
@@ -120,6 +143,7 @@ export default function ModalEditUser({
                         <input
                           type="text"
                           value={cargoValue}
+                          placeholder={userData.role}
                           style={{
                             color: cargoValue != "Cargo" ? "black" : "",
                           }}
@@ -158,10 +182,16 @@ export default function ModalEditUser({
                   </div>
                 </div>
                 <div className="box-button">
-                  <button type="submit">
+                  <button
+                    type="submit"
+                    style={{
+                      backgroundColor: isSubmitDisabled ? "#4b4d4a52" : "",
+                    }}
+                    disabled={isSubmitDisabled}
+                  >
                     {status != "idle" ? "" : "Atualizar"}
                     {status == "loading" ? (
-                      <div className="box-loadingEdit">
+                      <div className="box-loadingCircleAndSucess">
                         <CircleNotchIcon
                           id="circleIcon"
                           size={32}
@@ -172,7 +202,7 @@ export default function ModalEditUser({
                       ""
                     )}
                     {status == "success" ? (
-                      <div className="box-loadingEdit">
+                      <div className="box-loadingCircleAndSucess">
                         <CheckIcon
                           id="checkIcon"
                           size={32}
@@ -184,14 +214,28 @@ export default function ModalEditUser({
                       ""
                     )}
                   </button>
-                  <button type="button" id="deleteUserButton">
-                    <span>Excluir Usuário</span>
-                  </button>
                 </div>
               </form>
+              <div className="box-deleteBtnUser">
+                <button
+                  type="button"
+                  onClick={() => setOpenModalDesctructive(true)}
+                  id="deleteUserButton"
+                >
+                  <span>Excluir Usuário</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
+        {openModalDesctructive && (
+          <ModalDesctructive
+            closeModalUser={() => setOpenMenu(false)}
+            userNameUser={userData.nome}
+            userId={userData.id}
+            closeModal={() => setOpenModalDesctructive(false)}
+          />
+        )}
       </div>
     </>
   );
