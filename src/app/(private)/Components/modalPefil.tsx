@@ -74,7 +74,7 @@ export function ModalPerfilContent() {
                     type="text"
                     name="cargo"
                     disabled
-                    value={roleUser === "admin" ? "Administrador " : ""}
+                    value={roleUser}
                     id="cargo"
                   />
                 </div>

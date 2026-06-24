@@ -4,17 +4,25 @@ interface ModalUserProps {
   setOpenMenu: (value: boolean) => void;
 }
 import "@/Assets/css/components/modalCreateUser.css";
-import { CaretDownIcon, CheckIcon, CircleNotchIcon, XIcon } from "@phosphor-icons/react";
+import {
+  CaretDownIcon,
+  CheckIcon,
+  CircleNotchIcon,
+  XIcon,
+} from "@phosphor-icons/react";
 import Image from "next/image";
 import logoTree from "@/Assets/css/images/Tree.png";
 import { useState } from "react";
-import { initializeApp, deleteApp } from "firebase/app";
+import { initializeApp, deleteApp, FirebaseError } from "firebase/app";
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signOut,
 } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, addDoc, collection } from "firebase/firestore";
+import { AuthErrors } from "@/app/(auth)/AuthErrors";
+import { db } from "@/lib/auth/auth";
+import { useAuth } from "@/app/context/AuthContext";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -26,14 +34,22 @@ const firebaseConfig = {
 };
 
 export default function ModalCreateUser({ setOpenMenu }: ModalUserProps) {
-  const [cargoValue, setCargoValue] = useState("Cargo");
+  const [cargoValue, setCargoValue] = useState("");
   const [openModalCargo, setOpenModalCargo] = useState(false);
   const [inputValueEmail, setInputValueEmail] = useState("");
   const [inputValueName, setInputValueName] = useState("");
   const [inputValuePass, setInputValuePass] = useState("");
-  const [status, setStatus] = useState<"idle" | "loading" | "success" | "failed">("idle");
+  const [errorMessage, setErroMessage] = useState<string | undefined>("");
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "failed"
+  >("idle");
+  const {userName} = useAuth();
+  const auth = getAuth();
 
-  const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
+
   async function criarUsuarioSemDeslogar(
     email: string,
     password: string,
@@ -66,6 +82,16 @@ export default function ModalCreateUser({ setOpenMenu }: ModalUserProps) {
         photoURL: "",
         createdAt: new Date(),
       });
+      await addDoc(collection(dbSecundario, "logs"), {
+        tipo: "Create",
+        usuarioCriadoUid: novoUsuario.uid,
+        usuarioCriadoEmail: email,
+        usuarioNome: inputValueName,
+        usuarioCargo: cargoValue,
+        executadoPor: userName,
+        executadoPorId: auth.currentUser?.uid || "",
+        timestamp: new Date(),
+      });
 
       // 5. Desloga o utilizador da instância secundária e limpa o app temporário
       await signOut(authSecundario);
@@ -73,12 +99,11 @@ export default function ModalCreateUser({ setOpenMenu }: ModalUserProps) {
 
       return { success: true, uid: novoUsuario.uid };
     } catch (error) {
-      // Garante que limpa o app secundário mesmo se der erro no cadastro
+      console.log(error)
       try {
         await deleteApp(appSecundario);
       } catch (_) {}
 
-      console.error("Erro ao criar usuário:", error);
       throw error;
     }
   }
@@ -88,16 +113,16 @@ export default function ModalCreateUser({ setOpenMenu }: ModalUserProps) {
 
     try {
       setStatus("loading");
-      await delay(500)
+      await delay(500);
       if (
         inputValueEmail.length === 0 ||
         inputValueName.length === 0 ||
         inputValuePass.length === 0 ||
         cargoValue.length === 0
       ) {
-        setStatus("failed")
-        await delay(2000)
-        setStatus("idle")
+        setStatus("failed");
+        await delay(2000);
+        setStatus("idle");
         return;
       }
 
@@ -108,12 +133,21 @@ export default function ModalCreateUser({ setOpenMenu }: ModalUserProps) {
         cargoValue,
       );
       setStatus("success");
-      await delay(2000)
+      await delay(2000);
       setOpenMenu(false);
-    } catch (error: unknown) {
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
-      alert("Erro ao criar conta: " + errorMessage);
+    } catch (error) {
+      if (error instanceof FirebaseError) {
+        const errorMessage = AuthErrors(error.code);
+        setErroMessage(errorMessage);
+      } else {
+        setErroMessage("Erro desconhecido");
+      }
+      setStatus("failed");
+    } finally {
+      setTimeout(() => {
+        setErroMessage("");
+        setStatus("idle");
+      }, 3000);
     }
   };
 
@@ -188,15 +222,17 @@ export default function ModalCreateUser({ setOpenMenu }: ModalUserProps) {
                 <div className="container-Cargo">
                   <div className="box-cargo">
                     <span>Cargo</span>
-                    <div className="box-input"
+                    <div
+                      className="box-input"
                       style={{
-                        border: cargoValue === "Cargo" ? "" : "1px solid black",
+                        border: cargoValue ? "1px solid black" : "",
                       }}
                     >
                       <div className="box-info">
                         <input
                           type="text"
                           value={cargoValue}
+                          placeholder={"Cargo"}
                           style={{
                             color: cargoValue != "Cargo" ? "black" : "",
                           }}
@@ -235,10 +271,16 @@ export default function ModalCreateUser({ setOpenMenu }: ModalUserProps) {
                   </div>
                 </div>
                 <div className="box-button">
-                  <button type="submit" style={{backgroundColor: status === "failed" ? "rgb(255, 70, 70)" : ""}}>
-                    {status != "idle" ? "" : "Atualizar"}
+                  <button
+                    type="submit"
+                    style={{
+                      backgroundColor:
+                        status === "failed" ? "rgb(255, 70, 70)" : "",
+                    }}
+                  >
+                    {status != "idle" ? "" : "Criar Usuário"}
                     {status == "loading" ? (
-                      <div className="box-loadingEdit">
+                      <div className="box-loadingCircleAndSucess">
                         <CircleNotchIcon
                           id="circleIcon"
                           size={32}
@@ -249,7 +291,7 @@ export default function ModalCreateUser({ setOpenMenu }: ModalUserProps) {
                       ""
                     )}
                     {status == "success" ? (
-                      <div className="box-loadingEdit">
+                      <div className="box-loadingCircleAndSucess">
                         <CheckIcon
                           id="checkIcon"
                           size={32}
@@ -261,7 +303,7 @@ export default function ModalCreateUser({ setOpenMenu }: ModalUserProps) {
                       ""
                     )}
                     {status == "failed" ? (
-                      <div className="box-loadingEdit">
+                      <div className="box-loadingCircleAndSucess">
                         <XIcon
                           id="checkIcon"
                           size={32}
@@ -273,11 +315,16 @@ export default function ModalCreateUser({ setOpenMenu }: ModalUserProps) {
                       ""
                     )}
                   </button>
-                  <p>{status === "failed" ? "Ops! Parece que você esqueceu de preencher o formulário." : ""}</p>
+                  <p>
+                    {!errorMessage && status === "failed"
+                      ? "ops! parece que você se esqueceu de preencher o formulário."
+                      : errorMessage}
+                  </p>
                 </div>
               </form>
             </div>
           </div>
+          
         </div>
       </div>
     </>

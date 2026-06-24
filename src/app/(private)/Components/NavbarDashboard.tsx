@@ -7,11 +7,12 @@ import { ModalPerfilContent } from "./modalPefil";
 
 import defaultProfile from "@/Assets/css/images/avatarPadrao.png"
 
-export function NavbarContent() {
+export default function NavbarContent() {
   const { setOpenModalPerfil, photoURL, openModalPerfil } = useAuth();
 
   return (
     <>
+    
       <div className="container-navDash">
         <div className="logo">
           <Image src={Logo}  height={80} alt="Logo" loading="eager" />
@@ -29,10 +30,3 @@ export function NavbarContent() {
   );
 }
 
-export default function Admin() {
-  return (
-    <AuthProvider>
-      <NavbarContent />
-    </AuthProvider>
-  );
-}

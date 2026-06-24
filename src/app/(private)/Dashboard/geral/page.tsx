@@ -17,12 +17,14 @@ import "@/Assets/css/components/geralDash.css";
 
 import noHistoric from "../../../../../public/noHistorico.png";
 import Image from "next/image";
+import NavbarDashboard from "../../Components/NavbarDashboard";
 
 export function GeralContent() {
   const { userName, usuarios } = useAuth();
   const router = useRouter();
   return (
     <>
+    <NavbarDashboard/>
       <div className="container-geral">
         <DashboardTitle
           title="Visão geral"
@@ -67,7 +69,7 @@ export function GeralContent() {
         <div className="box-actions">
           <span>Ações rápidas</span>
           <div className="box-circles">
-            <div className="circle">
+            <div className="circle" onClick={() => router.push("/dashboard/admin/plantios")}>
               <div className="infoBox">
                 <MapTrifoldIcon width={24} height={24} />
               </div>

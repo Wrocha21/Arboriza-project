@@ -7,6 +7,7 @@ import {
   UserGearIcon,
   MapPinArea,
   AppWindowIcon,
+  MapTrifoldIcon,
 } from "@phosphor-icons/react";
 import "@/Assets/css/components/adminSections.css";
 import "@/Assets/css/global.css";
@@ -17,14 +18,16 @@ import { useRouter } from "next/navigation";
 import DashboardTitle from "@/Components/DashboardTitle";
 import Card from "@/Components/Card";
 import { AuthProvider, useAuth } from "@/app/context/AuthContext";
+import NavbarDashboard from "../../Components/NavbarDashboard";
 
 export function AdminContent() {
   const [openModalCreateAccount, setOpenModalCreateAccount] = useState(false);
   const router = useRouter();
-  const { userName, usuarios } = useAuth();
+  const { userName, usuarios, roleUser } = useAuth();
 
   return (
     <>
+      <NavbarDashboard />
       <div className={"box-adm"}>
         <DashboardTitle
           title="Painel Admin"
@@ -93,8 +96,8 @@ export function AdminContent() {
               hasAction={() => router.push("/dashboard/equipe")}
             />
             <Card
-              title="Gerenciar plantios"
-              icon={Tree}
+              title="Acessar o Mapa"
+              icon={MapTrifoldIcon}
               colorArrow="rgb(10, 137, 29)"
               bgIcon="#004C1D"
               colorIcon="white"
@@ -115,6 +118,7 @@ export function AdminContent() {
               colorIcon="#2A874B"
               desc="Acompanhe o histórico de atividades dos usuários"
               hasNumber={false}
+              hasAction={() => router.push("/dashboard/admin/logs")}
             />
           </div>
         </div>

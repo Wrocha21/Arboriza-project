@@ -12,14 +12,17 @@ import {
 
 import { useRouter } from "next/navigation";
 import DashboardWelcome from "@/Components/DashboardTitle";
-
+import NavbarDashboard from "./NavbarDashboard";
 
 export function DashboardContent() {
   const router = useRouter();
   const { userName, roleUser } = useAuth();
 
+
+
   return (
     <>
+    <NavbarDashboard />
       <div className="container-dashboard">
         <DashboardWelcome
           title="Gestão do sistema"

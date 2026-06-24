@@ -235,20 +235,6 @@ body:has(.containerModal) {
     font-weight: bold;
     width: 340px;
   }
-  #deleteUserButton {
-    border: 1px dotted rgba(252, 106, 106, 0.13);
-    background-color: rgba(253, 131, 131, 0.027);
-    span {
-      color: rgb(250, 14, 14);
-    }
-
-    &:hover {
-      background-color: rgba(250, 5, 5, 0.753);
-      span {
-        color: white;
-      }
-    }
-  }
 }
 
 .box-perfilEditUser {
@@ -260,5 +246,25 @@ body:has(.containerModal) {
     width: 125px;
     height: 125px;
     border-radius: 50%;
+  }
+}
+
+#deleteUserButton {
+  width: 340px;
+  height: 60px;
+  border-radius: 7px;
+  border: 2px dotted rgba(251, 193, 193, 0.827);
+  background-color: rgba(253, 131, 131, 0.027);
+  span {
+    color: rgb(250, 14, 14);
+    font-weight:600;
+  }
+
+  &:hover {
+    background-color: rgba(250, 5, 5, 0.753);
+    border: none;
+    span {
+      color: white;
+    }
   }
 }

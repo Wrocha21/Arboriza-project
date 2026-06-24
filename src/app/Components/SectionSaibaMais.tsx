@@ -47,7 +47,7 @@ export default function SaibaMais() {
           <div className="accordeon" onClick={() => openAccordeonInfo(3)}>
             <div className="box-title">
               <InfoIcon size={29} color="#016726" />
-              <span>Legislação Municipal</span>
+              <span>Educação Ambiental</span>
             </div>
             <CaretDownIcon
               style={{
