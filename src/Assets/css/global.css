@@ -1,18 +1,16 @@
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html{
+html {
   scroll-behavior: "smooth";
 }
 
-body{
+body {
   background-color: #ffffff;
 }
-
-
 
 .swiper {
   width: 100%;
@@ -22,7 +20,7 @@ body{
 
 .swiper-slide {
   flex-shrink: 0; /* Impede que as imagens esmaguem */
-  width: 100%;    /* Garante que ocupem apenas o espaço de um slide */
+  width: 100%; /* Garante que ocupem apenas o espaço de um slide */
 }
 
 /* Evita que imagens fiquem gigantes no carregamento */
@@ -34,7 +32,228 @@ body{
   object-fit: cover;
 }
 
-
-.swiper-slide.swiper-slide-active{
+.swiper-slide.swiper-slide-active {
   margin: 0px;
+}
+
+.box-preLoading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg path {
+    stroke: green; /* Cor do contorno */
+    stroke-width: 1.5; /* Espessura da linha */
+    fill: transparent; /* Começa totalmente transparente */
+
+    /* Ajuste este valor se o contorno sumir ou não completar */
+    stroke-dasharray: 100;
+    stroke-dashoffset: 100;
+
+    /* Aplica o desenho em 1.5 segundos e depois o preenchimento em 0.5 segundos */
+    animation:
+      desenharContorno 0.7s ease-in-out forwards,
+      preencherIcone 0.5s ease-in-out 0.5s forwards;
+  }
+}
+
+.box-loadingCircleAndSucess {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg#checkIcon {
+    fill: white;
+    animation: sucess 0.5s linear;
+  }
+  svg#circleIcon {
+    animation: spin infinite 1s linear;
+  }
+}
+
+@keyframes desenharContorno {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes preencherIcone {
+  to {
+    fill: green;
+  }
+}
+@keyframes sucess {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.box-welcome {
+  background-color: #09471f;
+  margin: 10px;
+  height: 138px;
+  border-radius: 7px;
+  overflow: hidden;
+  position: relative;
+
+  .box-decoration {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    right: -1px;
+    display: flex;
+  }
+  .box-userName {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 10px 0px 10px;
+
+    span {
+      color: #cac400;
+      font-weight: 700;
+      font-size: 12px;
+    }
+  }
+  .box-texts {
+    margin-left: 32px;
+    width: 240px;
+    h2 {
+      color: white;
+      font-size: 22px;
+    }
+    span {
+      font-size: 12px;
+      color: rgb(176, 176, 176);
+      display: block;
+      width: 200px;
+      font-weight: 300;
+      margin: 0px;
+    }
+  }
+
+  #treeIcon {
+    position: absolute;
+    right: 59px;
+    top: 82px;
+  }
+}
+
+.container-navDash {
+  display: flex;
+  align-items: center;
+  height: 90px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid rgb(228, 228, 228);
+  .logo {
+    img {
+      width: 160px;
+      height: auto;
+      object-fit: contain;
+    }
+  }
+  .box-perfil {
+    display: flex;
+    align-items: center;
+    margin-right: 24px;
+    .circle {
+      width: 53px;
+      height: 53px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+  }
+}
+
+.container-modalDesctructive > .box-modal {
+  position: fixed; /* Garante que ele fique preso na tela, independente do scroll do fundo */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.431);
+
+  /* Flexbox limpo para centralizar o que estiver dentro (.boxModal) */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  /* Remove a necessidade de transform, top 50% e left 50% */
+  overflow-y: hidden;
+  z-index: 9999;
+
+  .modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 35px;
+    width: 340px;
+    height: 390px;
+    padding: 10px 10px 20px 10px;
+    background-color: white;
+    border-radius: 10px;
+
+    .box-icon {
+      display: flex;
+      justify-content: center;
+      background-color: rgba(255, 0, 0, 0.575);
+      padding: 10px;
+      border-radius: 50%;
+    }
+    .box-text {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      text-align: center;
+
+      span {
+        color: rgb(110, 108, 108);
+      }
+    }
+    .box-button {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      button {
+        width: 300px;
+        border-radius: 9px;
+        border: none;
+        height: 50px;
+      }
+
+      button#Confirm {
+        background-color: rgb(255, 83, 83);
+        font-size: 15px;
+        font-weight: 600;
+        color: white;
+
+        &:hover {
+          background-color: rgb(185, 54, 54);
+        }
+      }
+      button#Cancel {
+        font-size: 15px;
+        font-weight: 600;
+        color: rgb(58, 58, 58);
+
+        &:hover {
+          background-color: rgb(184, 184, 184);
+        }
+      }
+    }
+  }
 }

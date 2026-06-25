@@ -1,6 +1,5 @@
 "use client";
 
-
 import {
   HouseIcon,
   ListIcon,
@@ -15,22 +14,21 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import "../../Assets/css/components/navbar.css";
-import logoArboriza from "@/Assets/css/images/LOGO.png"
+import logoArboriza from "@/Assets/css/images/LOGO.png";
+
 export default function Navbar() {
   const [openMenu, setOpenMenu] = useState(false);
   const router = useRouter();
-
+  
   function openMenuHamburguer() {
     setOpenMenu(!openMenu);
   }
-
   function HandleOnClickLink(id: string) {
     const element = document.getElementById(id);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
   }
-
   function OnClickButtonLogin() {
     router.push("/login");
   }
@@ -42,9 +40,10 @@ export default function Navbar() {
           <div className="logo">
             <Image
               src={logoArboriza}
-              width={124}
-              height={57}
+              width={240}
+              height={80}
               alt="LogoArboriza"
+              loading="eager"
             ></Image>
           </div>
           <div className="menuHamburguer">
@@ -52,28 +51,28 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className={`box-HideMenu ${openMenu ? 'active' : ''}`} >
+        <div className={`box-HideMenu ${openMenu ? "active" : ""}`}>
           <div className="box-options">
             <ul>
               <li onClick={() => HandleOnClickLink("hero")}>
                 <HouseIcon size={29} color="#383333" />
-                Início
+                <span>Início</span>
               </li>
               <li onClick={() => HandleOnClickLink("map")}>
                 <MapTrifoldIcon size={29} color="#383333" />
-                Mapa
+                <span>Mapa</span>
               </li>
               <li onClick={() => HandleOnClickLink("sobre")}>
                 <UsersThreeIcon size={29} color="#383333" />
-                Sobre nós
+                <span>Sobre nós</span>
               </li>
               <li onClick={() => HandleOnClickLink("voluntary")}>
                 <HandshakeIcon size={29} color="#383333" />
-                Seja voluntário
+                <span>Seja voluntário</span>
               </li>
               <li onClick={() => HandleOnClickLink("saiba")}>
                 <QuestionMarkIcon size={29} color="#383333" />
-                Saiba mais
+                <span>Saiba mais</span>
               </li>
             </ul>
           </div>

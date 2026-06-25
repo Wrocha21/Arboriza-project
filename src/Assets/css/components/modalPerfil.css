@@ -1,0 +1,204 @@
+@import url("../variables.css");
+
+.container-perfil {
+  position: fixed; /* Garante que ele fique preso na tela, independente do scroll do fundo */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  z-index: 9999;
+
+  .box-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 90px;
+
+    .buttonBack {
+      margin-left: 12px;
+      width: 53px;
+      height: 52px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 9px;
+      background-color: var(--button-color);
+      svg {
+        fill: white;
+      }
+    }
+    .logo {
+      margin-right: 12px;
+    }
+  }
+  .box-perfil {
+    .perfil {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+
+      .circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        border-radius: 50%;
+        width: 125px;
+        height: 125px;
+        img {
+          width: 120px;
+          height: 120px;
+          border-radius: 50%;
+          border: 2px solid #22c55e;
+        }
+        .box-upload {
+          .Container-uploadFoto {
+            .box-inputFoto {
+              position: absolute;
+              right: 0;
+              top: 90px;
+              width: 46px;
+              height: 46px;
+              border-radius: 50%;
+              background: #22c55e;
+
+              display: flex;
+              justify-content: center;
+              align-items: center;
+
+              cursor: pointer;
+            }
+            input {
+              display: none;
+            }
+          }
+        }
+      }
+      .texts {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        #name {
+          font-weight: bold;
+          font-size: 18px;
+        }
+        #role {
+          color: gray;
+          font-weight: 500;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .container-inputs {
+    display: flex;
+    margin-top: 26px;
+    justify-content: center;
+    margin-left: 30px;
+    margin-right: 30px;
+
+    .box-inputs {
+      width: 420px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      span#titleInput {
+        font-weight: 500;
+        font-size: 16px;
+        color: var(--primaryText-color);
+      }
+
+      input {
+        height: 56px;
+        border-radius: 9px;
+        outline: none;
+        border: 1px solid rgb(199, 199, 199);
+      }
+      .box-info1 {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 22px;
+
+        .box-nome {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          .input {
+            input {
+              padding-left: 12px;
+              width: 240px;
+            }
+          }
+        }
+        .box-cargo {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+          .input {
+            input {
+              width: 120px;
+              padding-left: 12px;
+            }
+          }
+        }
+      }
+      .box-email {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 12px;
+        width: 100%;
+        .input {
+          input {
+            width: 100%;
+            padding-left: 12px;
+          }
+        }
+      }
+      span#recovery {
+        margin-top: 20px;
+        text-decoration: underline;
+        font-size: 13px;
+        font-weight: 400;
+        color: red;
+        text-underline-offset: 4px;
+      }
+    }
+  }
+  .buttons {
+    margin-top: 28px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 30px;
+    margin-left: 30px;
+    margin-right: 30px;
+    #save {
+      width: 100%;
+      height: 60px;
+      border-radius: 9px;
+      border: none;
+      background-color: var(--button-color);
+      color: white;
+      font-weight: bold;
+      font-size: 15px;
+    }
+    #logout {
+      width: 100%;
+      height: 60px;
+      border-radius: 9px;
+      border: none;
+      color: red;
+      border: 1px dotted red;
+      background-color: rgba(255, 212, 212, 0.363);
+      font-weight: bold;
+      font-size: 15px;
+    }
+  }
+}

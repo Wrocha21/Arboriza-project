@@ -1,7 +1,6 @@
 import Navbar from "../Components/Navbar";
 import "../../Assets/css/global.css";
 import Hero from "../Components/SectionHero";
-import SectionMap from "../Components/SectionMap";
 import Sobre from "../Components/SectionSobre";
 import Activity from "../Components/SectionActivity";
 
@@ -14,7 +13,6 @@ export default function Home() {
     <>
       <Navbar />
       <Hero />
-      <SectionMap />
       <Sobre />
       <Activity />
       <Voluntary/>
