@@ -122,7 +122,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       </>
     );
   }
-  console.log(roleUser);
   return (
     <AuthContext.Provider
       value={{
