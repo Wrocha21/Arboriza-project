@@ -29,7 +29,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/AuthContext";
 import { Plantio } from "@/types/plantio";
 
-import { collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 
 const icon = L.icon({
   iconUrl: "/Marker.svg",
@@ -67,6 +67,7 @@ export default function Map() {
   const { roleUser } = useAuth();
   const router = useRouter();
   const [plantios, setPlantios] = useState<Plantio[]>([]);
+  const {userName} = useAuth();
 
   function validadeUser() {
     if (roleUser === undefined) {
@@ -132,6 +133,13 @@ export default function Map() {
       setStatus("loading");
       await delay(500);
       const ref = doc(db, "plantios", String(plantId));
+      await addDoc(collection(db, "logs"), {
+        tipo: "plantio",
+        acao: "DELETE",
+        executadoPor: userName,
+        executadoPorId: auth.currentUser?.uid || "",
+        timestamp: new Date(),
+      });
       setStatus("success");
       await delay(2000);
       await deleteDoc(ref);
@@ -226,7 +234,7 @@ export default function Map() {
                       id="editPlant"
                       onClick={() => {
                         setModalEditarAberto(true);
-                        setPlantioSelecionado(plant)
+                        setPlantioSelecionado(plant);
                       }}
                     >
                       Editar plantio

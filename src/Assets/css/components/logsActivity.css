@@ -1,0 +1,38 @@
+.container-logs {
+  .titleSection {
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+  }
+  .box-logs {
+    margin-top: 20px;
+    overflow-y: auto;
+    height: 550px;
+  }
+}
+.box-noHistoric {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  align-items: center;
+  gap: 20px;
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: center;
+
+    span#title {
+      font-weight: 600;
+      font-size: 18px;
+      color: rgb(41, 41, 41);
+    }
+    span#subtitle {
+      font-weight: 600;
+      font-size: 13px;
+      color: rgb(116, 116, 116);
+    }
+  }
+}

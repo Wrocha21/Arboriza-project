@@ -83,7 +83,8 @@ export default function ModalCreateUser({ setOpenMenu }: ModalUserProps) {
         createdAt: new Date(),
       });
       await addDoc(collection(dbSecundario, "logs"), {
-        tipo: "Create",
+        tipo: "usuario",
+        acao: "CREATE",
         usuarioCriadoUid: novoUsuario.uid,
         usuarioCriadoEmail: email,
         usuarioNome: inputValueName,
@@ -177,7 +178,7 @@ export default function ModalCreateUser({ setOpenMenu }: ModalUserProps) {
                     className="input"
                     style={{
                       border:
-                        inputValueEmail.length > 0 ? "1px solid black" : "",
+                        inputValueName ? "1px solid black" : "",
                     }}
                   >
                     <input
@@ -193,7 +194,7 @@ export default function ModalCreateUser({ setOpenMenu }: ModalUserProps) {
                     className="input"
                     style={{
                       border:
-                        inputValueEmail.length > 0 ? "1px solid black" : "",
+                        inputValueEmail  ? "1px solid black" : "",
                     }}
                   >
                     <input
@@ -209,7 +210,7 @@ export default function ModalCreateUser({ setOpenMenu }: ModalUserProps) {
                     className="input"
                     style={{
                       border:
-                        inputValuePass.length > 0 ? "1px solid black" : "",
+                        inputValuePass ? "1px solid black" : "",
                     }}
                   >
                     <input

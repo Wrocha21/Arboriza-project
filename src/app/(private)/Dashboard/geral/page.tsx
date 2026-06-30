@@ -4,8 +4,6 @@ import { AuthProvider, useAuth } from "@/app/context/AuthContext";
 import DashboardTitle from "@/Components/DashboardTitle";
 import {
   ArrowUDownLeftIcon,
-  WarningCircleIcon,
-  Tree,
   Plant,
   UsersThreeIcon,
   MapTrifoldIcon,
@@ -18,19 +16,20 @@ import "@/Assets/css/components/geralDash.css";
 import noHistoric from "../../../../../public/noHistorico.png";
 import Image from "next/image";
 import NavbarDashboard from "../../Components/NavbarDashboard";
+import { PlantLogItem } from "@/Components/CardLogs";
 
 export function GeralContent() {
-  const { userName, usuarios } = useAuth();
+  const { userName, usuarios, logs, plants } = useAuth();
   const router = useRouter();
   return (
     <>
-    <NavbarDashboard/>
+      <NavbarDashboard />
       <div className="container-geral">
         <DashboardTitle
           title="Visão geral"
           arrowBack={ArrowUDownLeftIcon}
           username={userName}
-          hasAction={() => router.push("/dashboard")}
+          hasAction={() => router.push("/dashboard/")}
           desc="Dados atualizados e panorama geral do Arboriza Itaboraí!"
         />
 
@@ -38,30 +37,21 @@ export function GeralContent() {
           <span>Visão geral</span>
           <div className="box-cards">
             <div className="card">
-              <div className="box-icon" id="treeIconBox">
-                <Tree />
+              <div className="box-icon">
+                <UsersThreeIcon />
               </div>
               <div className="box-title">
-                <h2 id="treeContentText">0</h2>
-                <span>Plantios cadastrados</span>
+                <h2 id="cardText">{usuarios.length}</h2>
+                <span>Membros na Equipe</span>
               </div>
             </div>
             <div className="card">
-              <div className="box-icon">
+              <div className="box-icon" id="boxPlantCard">
                 <Plant />
               </div>
               <div className="box-title">
-                <h2>0</h2>
-                <span>Espécies registradas</span>
-              </div>
-            </div>
-            <div className="card">
-              <div className="box-icon" id="warningIconBox">
-                <WarningCircleIcon />
-              </div>
-              <div className="box-title">
-                <h2 id="warningContentText">0</h2>
-                <span>Plantios cadastrados</span>
+                <h2 id="cardText">{plants.length}</h2>
+                <span>Plantios registrados</span>
               </div>
             </div>
           </div>
@@ -69,7 +59,10 @@ export function GeralContent() {
         <div className="box-actions">
           <span>Ações rápidas</span>
           <div className="box-circles">
-            <div className="circle" onClick={() => router.push("/dashboard/admin/plantios")}>
+            <div
+              className="circle"
+              onClick={() => router.push("/dashboard/admin/plantios")}
+            >
               <div className="infoBox">
                 <MapTrifoldIcon width={24} height={24} />
               </div>
@@ -90,17 +83,35 @@ export function GeralContent() {
           </div>
         </div>
         <div className="box-atividades">
-          <div className="box-info">
+          <div
+            className="box-info"
+            onClick={() => router.push("/dashboard/geral/activities")}
+          >
             <span>Atividades recentes</span>
             <div className="box-see">
               <span>Ver todas</span>
               <CaretRightIcon width={24} height={24} />
             </div>
           </div>
-          <div className="box-noHistoric">
-            <Image src={noHistoric} width={100} height={100} alt=""></Image>
-            <span>Não há atividades no histórico</span>
+
+          <div className="box-logs">
+            {logs
+              .filter((p) => p.tipo === "plantio")
+              .slice(0, 2)
+              .map((p) => {
+                return (
+                  <div className="box-log" key={p.id}>
+                    <PlantLogItem log={p} />
+                  </div>
+                );
+              })}
           </div>
+          {!logs && (
+            <div className="box-noHistoric">
+              <Image src={noHistoric} width={100} height={100} alt=""></Image>
+              <span>Não há atividades no histórico</span>
+            </div>
+          )}
         </div>
       </div>
     </>

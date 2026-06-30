@@ -73,7 +73,8 @@ export default function ModalAddPLant({
         data: new Date().toLocaleDateString("pt-BR"),
       });
       await addDoc(collection(db, "logs"), {
-        tipo: "newPlanting",
+        tipo: "plantio",
+        acao: "CREATE",
         executadoPor: userName,
         executadoPorId: auth.currentUser?.uid || "",
         timestamp: new Date(),
@@ -109,7 +110,8 @@ export default function ModalAddPLant({
         dataAtualizacao: new Date(),
       });
       await addDoc(collection(db, "logs"), {
-        tipo: "plantEdit",
+        tipo: "plantio",
+        acao: "UPDATE",
         executadoPor: userName,
         executadoPorId: auth.currentUser?.uid || "",
         timestamp: new Date(),
@@ -232,9 +234,7 @@ export default function ModalAddPLant({
                   >
                     <input
                       type="text"
-                      value={
-                        modo === "edit" ? plantio?.especie : inputValueEspecie
-                      }
+                      value={inputValueEspecie}
                       onChange={(e) => setInputValueEspecie(e.target.value)}
                       placeholder="Ex: ipê-amarelo"
                     />

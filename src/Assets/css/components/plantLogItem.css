@@ -1,0 +1,107 @@
+/* Container que envolve todos os logs (coloque na div pai 'box-logs') */
+.box-logs {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Espaçamento entre cada card */
+  width: 100%;
+  align-items: center;
+  font-family: system-ui, -apple-system, sans-serif;
+  margin-top: 10px;
+
+
+}
+
+/* O Card Individual */
+.log-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff;
+  border: 1px solid #eef1f0;
+  border-radius: 16px;
+  width: 400px;
+  padding: 16px 24px;
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.02);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.log-card:hover {
+  transform: translateY(-1px);
+  box-shadow: 0px 6px 16px rgba(0, 0, 0, 0.04);
+}
+
+/* Seção da Esquerda: Ícone + Textos */
+.log-card-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Círculo do Ícone */
+.log-icon-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+}
+
+/* Textos informativos */
+.log-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.log-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #2d312e;
+}
+
+.log-subtitle {
+  margin: 0;
+  font-size: 14px;
+  color: #8c918e;
+}
+
+/* Seção da Direita: Data + Seta */
+.log-card-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.log-date {
+  font-size: 14px;
+  color: #8c918e;
+}
+
+.log-arrow {
+  display: flex;
+  align-items: center;
+  color: #115e3b; /* Tom verde escuro da seta */
+}
+
+/* Cores específicas baseadas na Ação (Estilo dos Ícones) */
+.badge-create {
+  background-color: #e8f5ee;
+  color: #115e3b;
+}
+
+.badge-update {
+  background-color: #ffedc3;
+  color: #000000;
+}
+
+.badge-delete {
+  background-color: #fdebee;
+  color: #c62828;
+}
+
+.badge-default {
+  background-color: #f4f6f5;
+  color: #555c58;
+}

@@ -1,12 +1,7 @@
 "use client";
 
-import {db } from "@/lib/auth/auth";
-import {
-  addDoc,
-  collection,
-  doc,
-  updateDoc,
-} from "firebase/firestore";
+import { db } from "@/lib/auth/auth";
+import { addDoc, collection, doc, updateDoc } from "firebase/firestore";
 import "@/Assets/css/components/modalEditUser.css";
 import {
   CaretDownIcon,
@@ -16,7 +11,7 @@ import {
 } from "@phosphor-icons/react";
 import Image from "next/image";
 import logoTree from "@/Assets/css/images/Tree.png";
-import {useState } from "react";
+import { useState } from "react";
 import defaultProfile from "@/Assets/css/images/avatarPadrao.png";
 import ModalDesctructive from "@/Components/ModalDesctructive";
 import { getAuth } from "firebase/auth";
@@ -35,17 +30,20 @@ interface ModalUserProps {
   userName: string;
 }
 
-export default function ModalEditUser({setOpenMenu,userData,userName,}: ModalUserProps) {
-
-
+export default function ModalEditUser({
+  setOpenMenu,
+  userData,
+  userName,
+}: ModalUserProps) {
   const [cargoValue, setCargoValue] = useState(userData.role);
   const [openModalCargo, setOpenModalCargo] = useState(false);
-  const [openModalDesctructive, setOpenModalDesctructive] = useState<boolean>(false);
+  const [openModalDesctructive, setOpenModalDesctructive] =
+    useState<boolean>(false);
   const [inputValueName, setInputValueName] = useState<string>(userData.nome);
   const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
-  const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
   const auth = getAuth();
-
 
   async function handleUpdateUser(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -61,7 +59,8 @@ export default function ModalEditUser({setOpenMenu,userData,userName,}: ModalUse
         role: cargoValue,
       });
       await addDoc(collection(db, "logs"), {
-        tipo: "Edit",
+        tipo: "usuario",
+        acao: "UPDATE",
         usuarioModificadoUid: userData.id,
         usuarioModificadoNome: inputValueName,
         usuarioCargo: cargoValue,
@@ -85,7 +84,7 @@ export default function ModalEditUser({setOpenMenu,userData,userName,}: ModalUse
   }
   const isSubmitDisabled =
     inputValueName === userData.nome && cargoValue === userData.role;
-    
+
   return (
     <>
       <div className="containerModal">
