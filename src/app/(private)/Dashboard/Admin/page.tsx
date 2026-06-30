@@ -23,8 +23,7 @@ import NavbarDashboard from "../../Components/NavbarDashboard";
 export function AdminContent() {
   const [openModalCreateAccount, setOpenModalCreateAccount] = useState(false);
   const router = useRouter();
-  const { userName, usuarios, roleUser } = useAuth();
-
+  const { userName, usuarios, plants } = useAuth();
   return (
     <>
       <NavbarDashboard />
@@ -51,22 +50,13 @@ export function AdminContent() {
                   <span>Usuários cadastrados</span>
                 </div>
               </div>
-              <div className="card">
-                <div className="box-icon">
-                  <MapPinArea />
-                </div>
-                <div className="box-title">
-                  <h2>0</h2>
-                  <span>Áreas mapeadas</span>
-                </div>
-              </div>
             </div>
             <div className="card">
               <div className="box-icon">
                 <Tree />
               </div>
               <div className="box-title">
-                <h2>0</h2>
+                <h2>{plants.length}</h2>
                 <span>Plantios cadastrados</span>
               </div>
             </div>

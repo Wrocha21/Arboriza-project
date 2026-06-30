@@ -96,7 +96,6 @@ export function ModalPerfilContent() {
           </div>
         </div>
         <div className="buttons">
-          <button id="save">Salvar alterações</button>
           <button id="logout">Terminar sessão</button>
         </div>
       </div>

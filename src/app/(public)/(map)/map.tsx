@@ -13,13 +13,23 @@ import "leaflet/dist/leaflet.css";
 import "@/Assets/css/components/map.css";
 import L from "leaflet";
 import { useEffect, useState } from "react";
-import { CaretLeftIcon, Plant, PlantIcon, User } from "@phosphor-icons/react";
+import {
+  CaretLeftIcon,
+  CheckIcon,
+  CircleNotchIcon,
+  PlantIcon,
+  Tree,
+  UserCircle,
+  XIcon,
+  CalendarBlank,
+} from "@phosphor-icons/react";
 import ModalAddPLant from "@/app/(private)/Components/ModalAddPlant";
 import { auth, db } from "@/lib/auth/auth";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/app/context/AuthContext";
-import { collection, getDocs, onSnapshot } from "firebase/firestore";
-import { Calendar } from "@phosphor-icons/react/dist/ssr";
+import { Plantio } from "@/types/plantio";
+
+import { addDoc, collection, deleteDoc, doc, onSnapshot } from "firebase/firestore";
 
 const icon = L.icon({
   iconUrl: "/Marker.svg",
@@ -30,17 +40,6 @@ const icon = L.icon({
 
 interface OvinteDeCliquesProps {
   aoClicar: (lat: number, lng: number) => void;
-}
-
-interface Plantio {
-  id: string | number;
-  lat: number;
-  lng: number;
-  especie: string;
-  desc?: string;
-  quantidade: number | string;
-  date: string;
-  responsavel: string;
 }
 
 function OvinteDeCliques({ aoClicar }: OvinteDeCliquesProps) {
@@ -56,10 +55,19 @@ export default function Map() {
   const position: [number, number] = [-22.7494, -42.8592];
   const [modalAberto, setModalAberto] = useState(false);
   const [coordenadas, setCoordenadas] = useState({ lat: 0, lng: 0 });
-  const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+  const [modalEditarAberto, setModalEditarAberto] = useState(false);
+  const [plantioSelecionado, setPlantioSelecionado] = useState<Plantio | null>(
+    null,
+  );
+  const [status, setStatus] = useState<
+    "idle" | "loading" | "success" | "failed"
+  >("idle");
+  const delay = (ms: number) =>
+    new Promise((resolve) => setTimeout(resolve, ms));
   const { roleUser } = useAuth();
   const router = useRouter();
   const [plantios, setPlantios] = useState<Plantio[]>([]);
+  const {userName} = useAuth();
 
   function validadeUser() {
     if (roleUser === undefined) {
@@ -75,10 +83,8 @@ export default function Map() {
   }
 
   useEffect(() => {
-    // 1. Criamos a referência da coleção ou query
     const q = collection(db, "plantios");
 
-    // 2. Usamos o onSnapshot para escutar em tempo real
     const unsubscribe = onSnapshot(
       q,
       (querySnapshot) => {
@@ -97,7 +103,6 @@ export default function Map() {
             responsavel?: string;
           };
 
-          // Sua validação existente
           if (typeof data.lat !== "number" || typeof data.lng !== "number") {
             return;
           }
@@ -109,27 +114,47 @@ export default function Map() {
             lng: data.lng,
             especie: data.especie ?? "Espécie desconhecida",
             desc: data.desc ?? "",
-            date: data.date ?? data.data ?? "", // Corrigido uma pequena duplicidade/fallback que estava no seu
+            date: data.date ?? data.data ?? "",
             responsavel: data.responsavel ?? "",
           });
         });
 
-        // 3. Atualiza o estado com os novos dados em tempo real
         setPlantios(listaPlantios);
       },
       (error) => {
         console.error("Erro ao buscar plantios em tempo real:", error);
       },
     );
-
-    // 4. MUITO IMPORTANTE: Retornar a função de limpeza (unsubscribe)
-    // Isso evita vazamento de memória quando o componente for desmontado
     return () => unsubscribe();
   }, []);
 
+  async function deletePlantMarker(plantId: string | number) {
+    try {
+      setStatus("loading");
+      await delay(500);
+      const ref = doc(db, "plantios", String(plantId));
+      await addDoc(collection(db, "logs"), {
+        tipo: "plantio",
+        acao: "DELETE",
+        executadoPor: userName,
+        executadoPorId: auth.currentUser?.uid || "",
+        timestamp: new Date(),
+      });
+      setStatus("success");
+      await delay(2000);
+      await deleteDoc(ref);
+    } catch (error) {
+      console.error(error);
+      await delay(500);
+      setStatus("failed");
+    } finally {
+      setStatus("idle");
+    }
+  }
+
   const handleCliqueNoMapa = async (lat: number, lng: number) => {
     setCoordenadas({ lat, lng });
-    await delay(200)
+    await delay(200);
     setModalAberto(true);
   };
 
@@ -179,7 +204,7 @@ export default function Map() {
                     <div className="box-card">
                       <div className="quant">
                         <div className="info">
-                          <Plant width={24} height={24} />
+                          <Tree width={24} height={24} />
                           <span>Quantidade</span>
                         </div>
                         <span id="quantText">🌱 {plant.quantidade} Mudas</span>
@@ -188,7 +213,7 @@ export default function Map() {
                     <div className="box-card">
                       <div className="quant">
                         <div className="info">
-                          <Calendar width={24} height={24} />
+                          <CalendarBlank width={24} height={24} />
                           <span>Data do plantio</span>
                         </div>
                         <span id="quantText">{plant.date}</span>
@@ -197,7 +222,7 @@ export default function Map() {
                     <div className="box-card">
                       <div className="quant">
                         <div className="info">
-                          <User width={24} height={24} />
+                          <UserCircle width={24} height={24} />
                           <span>Responsável</span>
                         </div>
                         <span id="quantText">{plant.responsavel}</span>
@@ -205,8 +230,61 @@ export default function Map() {
                     </div>
                   </div>
                   <div className="box-button">
-                    <button id="editPlant">Editar plantio</button>
-                    <button id="removePlant">Remover plantio</button>
+                    <button
+                      id="editPlant"
+                      onClick={() => {
+                        setModalEditarAberto(true);
+                        setPlantioSelecionado(plant);
+                      }}
+                    >
+                      Editar plantio
+                    </button>
+                    <button
+                      type="submit"
+                      id="removePlant"
+                      onClick={() => deletePlantMarker(plant.id)}
+                      style={{
+                        backgroundColor:
+                          status === "failed" ? "rgb(255, 70, 70)" : "",
+                      }}
+                    >
+                      {status != "idle" ? "" : "Deletar Plantio"}
+                      {status == "loading" ? (
+                        <div className="box-loadingCircleAndSucess">
+                          <CircleNotchIcon
+                            id="circleIcon"
+                            size={32}
+                            color="#ffffff"
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      {status == "success" ? (
+                        <div className="box-loadingCircleAndSucess">
+                          <CheckIcon
+                            id="checkIcon"
+                            size={32}
+                            color="#ffffff"
+                            weight="regular"
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                      {status == "failed" ? (
+                        <div className="box-loadingCircleAndSucess">
+                          <XIcon
+                            id="checkIcon"
+                            size={32}
+                            color="#ffffff"
+                            weight="regular"
+                          />
+                        </div>
+                      ) : (
+                        ""
+                      )}
+                    </button>
                   </div>
                 </div>
               </Popup>
@@ -221,18 +299,27 @@ export default function Map() {
                 fillOpacity: 0.3,
               }}
               radius={30}
-            >
-              
-            </Circle>
+            ></Circle>
           )}
         </MapContainer>
       </div>
 
       {modalAberto && (
         <ModalAddPLant
+          modo="create"
           setOpenMenu={setModalAberto}
           latitude={coordenadas.lat}
           longitude={coordenadas.lng}
+        />
+      )}
+
+      {modalEditarAberto && (
+        <ModalAddPLant
+          modo="edit"
+          setOpenMenu={setModalEditarAberto}
+          latitude={coordenadas.lat}
+          longitude={coordenadas.lng}
+          plantio={plantioSelecionado}
         />
       )}
     </>

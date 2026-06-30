@@ -9,9 +9,8 @@ import {
   XIcon,
 } from "@phosphor-icons/react";
 import { getAuth } from "firebase/auth";
-import { addDoc, collection} from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
 import { useState } from "react";
-
 
 interface ModalDesctructiveProps {
   userNameUser: string;
@@ -65,7 +64,8 @@ export default function ModalDesctructive({
       const data = await response.json();
 
       await addDoc(collection(db, "logs"), {
-        tipo: "Delete",
+        tipo: "usuario",
+        acao: "DELETE",
         usuarioExcluidoUid: userId,
         usuarioExcluidoNome: userNameUser,
         executadoPor: userName,
@@ -102,7 +102,8 @@ export default function ModalDesctructive({
             <div className="box-text">
               <h2>Deletar Conta</h2>
               <span>
-                Você está prestes a deletar o usuário {userNameUser}, Tem Certeza?
+                Você está prestes a deletar o usuário {userNameUser}, Tem
+                Certeza?
               </span>
             </div>
             <div className="box-button">

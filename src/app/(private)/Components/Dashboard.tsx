@@ -13,16 +13,28 @@ import {
 import { useRouter } from "next/navigation";
 import DashboardWelcome from "@/Components/DashboardTitle";
 import NavbarDashboard from "./NavbarDashboard";
+import { useEffect } from "react";
+import { deleteOldLogs } from "./DeleteLogs";
 
 export function DashboardContent() {
   const router = useRouter();
   const { userName, roleUser } = useAuth();
+  useEffect(() => {
+    const HOJE = new Date().toDateString(); // Ex: "Sun Jun 28 2026"
+    const ultimaLimpeza = localStorage.getItem("DATA_ULTIMA_LIMPEZA");
 
-
+    // Só roda a função se a última limpeza não tiver sido feita hoje
+    if (ultimaLimpeza !== HOJE) {
+      deleteOldLogs().then(() => {
+        // Salva no navegador que a limpeza do dia já foi concluída
+        localStorage.setItem("DATA_ULTIMA_LIMPEZA", HOJE);
+      });
+    }
+  }, []);
 
   return (
     <>
-    <NavbarDashboard />
+      <NavbarDashboard />
       <div className="container-dashboard">
         <DashboardWelcome
           title="Gestão do sistema"
